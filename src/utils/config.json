@@ -1,0 +1,10 @@
+{
+  "name": "yeetiku",
+  "domain":"yeetiku.com",
+  "prefix": "",
+  "server":"http://yeetiku.com:8080",
+  "baseURL": "http://yeetiku.com:8080/api/v1",
+  "apiPrefix": "/api/v1",
+  "guestAccount":"guest@yeetiku.com",
+  "guestPassword":"123456",
+}

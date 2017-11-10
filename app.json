@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "Yee Tiku || 忆题库 ",
+    "slug": "yeetiku",
+    "sdkVersion": "19.0.0",
+    "icon":"./icon.png",
+    "privacy": "public"
+  }
+}

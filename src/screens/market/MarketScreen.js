@@ -1,0 +1,148 @@
+/* @flow */
+
+import React, { Component } from 'react'
+import { observable } from 'mobx'
+import { observer, inject } from 'mobx-react'
+import { View,Text,FlatList,StyleSheet} from 'react-native'
+import { Header, Item, Input, Icon, Button } from 'native-base'
+import styled from 'styled-components/native'
+import color from '../../components/colors'
+import ThumbnailListItem from '../../components/metaList/item'
+
+import { Ionicons } from '@expo/vector-icons'
+
+@inject('bankStore')
+@observer
+export default class Market extends Component {
+  static navigationOptions = {
+    title: '商店',
+  }
+
+  constructor(){
+    super()
+    this.searchValue = ""
+  }
+  //
+  // componentWillMount(){
+  //   this.props.bankStore.fetchAll()
+  // }
+
+  _handleItemPress =  (item,index) => {
+    const {navigation,bankStore} = this.props
+
+    bankStore.setCurrentMarketIndex(index)
+    navigation.navigate("MarketItemScreen")
+  }
+
+  _keyExtractor = (item, index) =>  index
+
+  _getBanks = () => {
+    const {navigation,bankStore} = this.props
+    const type = navigation.state.params.type || null
+    if (type === "tags"){
+      bankStore.fetchByTag()
+    }else{
+      bankStore.fetchAll("name", this.searchValue)
+    }
+  }
+
+  _onChangeText = (text) => {
+      this.searchValue = text
+  }
+
+  _handleSearch = () => {
+      const { bankStore } = this.props
+      bankStore.cleanMarket()
+      bankStore.fetchAll("name", this.searchValue)
+  }
+
+  _onSubmitEditing =() =>{
+    this._textInput.blur();
+  }
+
+  render() {
+    const {navigation, bankStore} = this.props
+    const { bankMarketTotal } = bankStore
+    let total = 0
+    if ( bankMarketTotal !== -1 ) total = bankMarketTotal
+    return (
+      <Container style={{backgroundColor:color.background}}>
+        <Content>
+            <Header searchBar rounded style={{backgroundColor:color.theme }}>
+              <Item>
+                <Input
+                  placeholder="Search"
+                  returnKeyType='search'
+                  onChangeText={this._onChangeText}
+                  onSubmitEdit={ () => {}}
+                  />
+                <Button transparent onPress={()=>this._handleSearch()}>
+                <Icon name="ios-search" />
+                  <Text>Search</Text>
+                </Button>
+              </Item>
+
+            </Header>
+              <DesTextView>
+                <Text style={{color:"#666666"}}> {total}个题库 </Text>
+              </DesTextView>
+              <FlatList
+                data={bankStore.bankMarket}
+                keyExtractor={this._keyExtractor}
+                renderItem={({item,index}) => <ThumbnailListItem  item={item}
+                                                            index={ index }
+                                                            key={item.key}
+                                                            onPress={this._handleItemPress}/>}
+                refreshing={bankStore.loading}
+                onRefresh={()=>this._getBanks()}
+                onEndReachedThreshold={1}
+                onEndReached={({ distanceFromEnd }) => {
+                   this._getBanks()
+                 }}
+                style={{margin:10}}
+                />
+
+          </Content>
+      </Container>
+    )
+  }
+}
+
+const Container = styled.View`
+  flex:1;
+  background:#2c3e50;
+`
+
+const Content = styled.View`
+  flex:1;
+`
+
+const BannerView = styled.View`
+  height:150;
+  background:#f1c40f;
+`
+
+const SubscribeButton = styled.TouchableHighlight`
+  justify-content: center;
+  align-items: center;
+  flex:1;
+  width:40;
+`
+const DesTextView = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  height:20;
+  margin-right:20;
+  margin-top:5;
+`
+const styles = StyleSheet.create({
+
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height:400,
+    width:300,
+    backgroundColor:'transparent'
+  },
+
+});
