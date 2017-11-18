@@ -18,6 +18,8 @@ export default class Market extends Component {
     title: '商店',
   }
 
+  @observable onEndReachedCalledDuringMomentum = true
+
   constructor(){
     super()
     this.searchValue = ""
@@ -83,9 +85,10 @@ export default class Market extends Component {
               </Item>
 
             </Header>
-              <DesTextView>
-                <Text style={{color:"#666666"}}> {total}个题库 </Text>
+              {/* <DesTextView>
+                 <Text style={{color:"#666666"}}> {total}个题库 </Text>
               </DesTextView>
+              */}
               <FlatList
                 data={bankStore.bankMarket}
                 keyExtractor={this._keyExtractor}
@@ -95,9 +98,14 @@ export default class Market extends Component {
                                                             onPress={this._handleItemPress}/>}
                 refreshing={bankStore.loading}
                 onRefresh={()=>this._getBanks()}
-                onEndReachedThreshold={1}
+                onEndReachedThreshold={0.5}
+                onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false }}
                 onEndReached={({ distanceFromEnd }) => {
-                   this._getBanks()
+                   if (!this.onEndReachedCalledDuringMomentum) {
+                     this._getBanks()
+                     this.onEndReachedCalledDuringMomentum = true
+                   }
+
                  }}
                 style={{margin:10}}
                 />

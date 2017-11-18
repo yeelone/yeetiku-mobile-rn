@@ -23,6 +23,8 @@ export default class PracticeIndex extends Component {
       sliderValue: 0.3
   }
 
+  @observable onEndReachedCalledDuringMomentum = true
+
   componentWillMount(){
     this.asyncInitialData()
   }
@@ -85,10 +87,14 @@ export default class PracticeIndex extends Component {
                                                           onPress={this._handleItemPress}/>}
               refreshing={bankStore.loading}
               onRefresh={()=>this._onRefresh()}
-              initialNumToRender={1}
-              onEndReachedThreshold={1}
+              onEndReachedThreshold={0.5}
+              onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false }}
               onEndReached={({ distanceFromEnd }) => {
-                 bankStore.fetchByUser(userStore.id)
+                if (!this.onEndReachedCalledDuringMomentum) {
+                  bankStore.fetchByUser(userStore.id)
+                  this.onEndReachedCalledDuringMomentum = true
+                }
+
                }}
               style={{margin:10}}
               />

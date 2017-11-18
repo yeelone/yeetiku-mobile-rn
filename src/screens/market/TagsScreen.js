@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,FlatList,TouchableOpacity,Dimensions } from 'react-native'
+import { View,Text,FlatList,TouchableOpacity,Dimensions,ScrollView } from 'react-native'
 import { Container,Content,Spinner,Button  } from 'native-base'
 import styled from 'styled-components/native'
 import color from '../../components/colors'
@@ -40,7 +40,7 @@ export default class TagsScreen extends Component {
       this.key = key
       this.itemState = {
         checked: !this.itemState.checked,
-        style:{margin:0,padding:0,borderLeftWidth:4,backgroundColor:"#ffffff"}
+        style:{margin:0,padding:0,backgroundColor:"#3498db"}
       }
   }
 
@@ -51,11 +51,9 @@ export default class TagsScreen extends Component {
            style = this.itemState.style
          }
          return (
-             <ListItem key={node.id} style={style}>
-                <Level1Button onPress={() => this.handlerL1Press(node.id) } >
-                  <Text style={{color:"#2ecc71"}}>{node.name}</Text>
-                </Level1Button>
-             </ListItem>
+              <Level1Button key={node.id} style={style} onPress={() => this.handlerL1Press(node.id) } >
+                <Text>{node.name}</Text>
+              </Level1Button>
          )
        }
    }
@@ -70,18 +68,16 @@ export default class TagsScreen extends Component {
            if (parent.tag){
                return (
                    <View key={parent.tag.id}>
-                       <Level2Button onPress={() => this.jumpToMarket(parent.tag.id)} >
-                           <Text>
-                               { parent.tag.name }
-                           </Text>
-                       </Level2Button>
                        <TagItemList>
+                       <Level2Button onPress={() => this.jumpToMarket(parent.tag.id)} >
+                           <Text style={{ fontSize:18,color:"#2c3e50" }}> { parent.tag.name } : </Text>
+                       </Level2Button>
                        {Object.keys(parent.children).map((key2)=>{
                            const child = parent.children[key2].tag
                            if (child){
                                return(
-                                 <Button key={child.id} rounded light
-                                      style={{margin:5,borderColor:"#cccccc",backgroundColor:"white"}}>
+                                 <Button key={child.id} light
+                                      style={{margin:5,padding:10,borderColor:"#cccccc",backgroundColor:"white"}}>
                                     <TouchableOpacity onPress={() => this.jumpToMarket(child.id)}>
                                     <Text>{child.name} </Text>
                                     </TouchableOpacity>
@@ -109,70 +105,55 @@ export default class TagsScreen extends Component {
       level2 = allTags[this.key]
     }
     return (
-        <Container style={{backgroundColor:color.background}}>
+        <Container style={{backgroundColor:"white"}}>
           <TopHeader
             navigation={navigation}
-            title={ <Text style={{color:'white', fontSize:20 }}>标签</Text>}
+            title={ <Text style={{color:'white', fontSize:20}}>标签</Text>}
             style={{ backgroundColor:color.theme }}
             />
             { loading ? <Spinner color='green' /> : null}
-            <Main>
-                <LeftPane>
-                  <List>
+            <ScrollView>
+                <View><Text style={{ fontSize:18,margin:10,color:"#7f8c8d" }}>一级标签</Text></View>
+                <TopPane>
                   {
                     Object.keys(allTags).map((key)=>{
                               const item = allTags[key].tag
                               return this.renderLevel1(item)
                           })
                   }
-                  </List>
-                </LeftPane>
-                <RightPane>
+                </TopPane>
+                <View><Text style={{ fontSize:18,margin:10,color:"#7f8c8d"}}>二级标签</Text></View>
+                <BottomPane>
                     { this.renderLevel2( level2 ) }
-                </RightPane>
-            </Main>
+                </BottomPane>
+            </ScrollView>
         </Container>
     )
   }
 }
 
-const windowSize = Dimensions.get('window')
-
-const Main = styled.View`
-  flex:1;
-  flex-direction:row;
-`
-
-const LeftPane = styled.ScrollView`
-  width:100;
-  height:${windowSize.height};
+const TopPane = styled.View`
   border-style:dashed;
-  border-color: #ffffff;
+  border-color:#ffffff;
+  flex-direction:row;
+  align-items:flex-start;
+  flex-wrap:wrap;
 `
-
-const RightPane = styled.ScrollView`
-  background-color:#ffffff;
-  width:${windowSize.width-120};
-  height:${windowSize.height};
-  padding:20;
+const BottomPane = styled.View`
+  padding:10;
 `
-
 const Level1Button = styled.TouchableOpacity`
   justify-content:center;
   align-items:center;
   padding:10;
+  margin:5;
+  background-color:#ecf0f1;
 `
-
 const Level2Button = styled.TouchableOpacity`
-  padding:10;
+  padding:20;
 `
 const TagItemList = styled.View`
-  flex:1;
   flex-direction:row;
-`
-
-const List = styled.View``
-
-const ListItem = styled.View`
-  margin-top:5;
+  align-items:flex-start;
+  flex-wrap:wrap;
 `

@@ -7,7 +7,7 @@ import { Card,CardItem,Thumbnail } from 'native-base'
 import styled from 'styled-components/native'
 
 export default function listItem({ index,item,onPress }) {
-  const { id,name ,description,image,total,CreatedAt,latest } = item
+  const { id,name ,description,image,total,createdAt,latest } = item
   const config = ConfigManager.getInstance().config
   thumbnail = config.server + image
   formatTime = (datetime) => {
@@ -23,15 +23,15 @@ export default function listItem({ index,item,onPress }) {
               <View>
                 <Text> {name} [{total}道题]</Text>
               </View>
-              <View>
-                <Text style={{color:"grey"}}> {description} </Text>
+              <View >
+                <Text style={{color:"grey"}} numberOfLines={1}> {description} </Text>
               </View>
               <View>
-                <Text style={{color:"grey"}}> 创建时间:{this.formatTime(CreatedAt)} </Text>
+                <Text style={{color:"grey"}}> 创建时间:{this.formatTime(createdAt)} </Text>
               </View>
             </View>
-            <View style={{width:60,justifyContent: 'flex-end',backgroundColor:'red',alignItems: 'center'}}>
-              <Thumbnail square source={{uri:thumbnail}} style={{width:100}} />
+            <View style={{width:80,justifyContent: 'flex-end',alignItems: 'center'}}>
+              <Thumbnail square source={{uri:thumbnail}} style={{width:80}} />
             </View>
           </BorderView>
         </CardItem>
