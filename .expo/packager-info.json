@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 1932,
+  "expoServerNgrokUrl": "https://fm-kma.yeelone.mobile-reactnative.exp.direct",
+  "packagerNgrokUrl": "https://packager.fm-kma.yeelone.mobile-reactnative.exp.direct",
+  "ngrokPid": 8556
 }

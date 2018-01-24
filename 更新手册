@@ -1,0 +1,11 @@
+1、确定各依赖版本
+expo  25.0.0        React Native 0.52.0
+
+nativebase v2.3.0	React Native v0.46.0 and above
+
+2、升级 react native 
+https://reactnative.cn/docs/0.48/upgrading.html
+
+
+3
+删除 node_module然而执行 ： yarn 
