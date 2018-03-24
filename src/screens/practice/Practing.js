@@ -17,6 +17,10 @@ import Filling from '../../components/questions/filling'
 import StarButton  from '../../components/button/star'
 import Timer from '../../components/timer/timer'
 import color from '../../components/colors'
+
+import { Comments } from 'react-native-easy-comments'
+import dataMap from '../../../mock/data'
+
 const QuestionType = {
     single:'单选题',
     multiple:'多选题',
@@ -199,6 +203,26 @@ export default class Practing extends Component {
     this.__handleNextPrev(  this.props.questionStore.current - 1 )
   }
 
+  onLike  = ({item}) => {
+    alert("onLike"+item.id);
+  }
+
+  onDown = ({item}) => {
+    alert("onDown" +  item.id );
+  }
+
+  onSend = ({content}) => {
+    alert("onSend: " + content  );
+  }
+
+  onFollow = ({item}) => {
+    alert("onFollow : "+ item.id );
+  }
+
+  onEndReached = (id) => {
+    alert("onEndReached : " + id);
+  }
+
   renderHeader = (title) => {
     return (
       <View>
@@ -238,6 +262,17 @@ export default class Practing extends Component {
         </Modal>
       )
   }
+
+  renderActions = () => {
+    const { currentIsFavorites } = this.props.questionStore
+    return (
+      <View style={{height:30,flexDirection:'row'}}>
+          <StarButton  default={currentIsFavorites} onPress={() => this._handleStarAction(currentIsFavorites) } />
+          <Text>回复</Text>
+      </View>
+    )
+  }
+
 
   render() {
     const {navigation,questionStore} = this.props
@@ -302,6 +337,7 @@ export default class Practing extends Component {
                 { questionComponent() }
                 { this.renderModal() }
               </View>
+              {  this.renderActions()   }
 
           </CardView>
         </Content>

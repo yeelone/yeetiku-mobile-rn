@@ -6,7 +6,7 @@ import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 import { FontAwesome } from '@expo/vector-icons'
 import { MarketScreen, MarketItemScreen,TagsScreen  }from './screens/market'
 import { ProfileScreen,ProfileInfo,ProfileNameEditor,ProfileSexEditor,ProfilePasswordEditor }  from './screens/profile'
-import { PracticeIndex,Practing } from './screens/practice'
+import { PracticeIndex,Practing,QuestionComments } from './screens/practice'
 import { Register,Settings,FeedBack,Banks,Login,Splash } from './screens'
 import color from './components/colors'
 
@@ -81,6 +81,7 @@ const MainNavigator =  StackNavigator({
   ProfileSexEditor:{ screen:ProfileSexEditor, path: 'profile-field/:sex' },
   ProfilePasswordEditor:{ screen:ProfilePasswordEditor, path: 'profile-field/:password' },
   Practing:{ path: 'practing/:type',screen: Practing},
+  QuestionComments:{ screen: QuestionComments},
   Banks:{screen: Banks},
 }, {
   initialRouteName: 'Login',
