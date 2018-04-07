@@ -1,24 +1,32 @@
 /* @flow */
 
 // import axios from 'axios'
-import { observable ,action } from 'mobx'
-import { query,addFavorites,removeFavorites,queryFavoritesStatusByUserID,queryUserFavorites,queryUserWrong } from '../services/questions'
+import { observable ,action,toJS } from 'mobx'
+import { query,addFavorites,removeFavorites,queryFavoritesStatusByUserID,queryUserFavorites,
+  queryUserWrong,queryComments,queryChildComments,createComments,userLikeComment,userDislikeComment } from '../services/questions'
 import { queryRelatedQuestions } from '../services/banks'
 import { saveRecords } from '../services/users'
 
 export default class QuestionStore {
-  @observable questions = []
   @observable id: number = 0
+  @observable questions = []
   @observable current: number = 0  //记录用户当前打开的item 位置
   @observable total: number = 0    // 题目总数量
+  @observable commentTotal: number = 0 
   @observable page: number = 1
   @observable pageSize: number = 10
+  @observable commentPage: number = 1
+  @observable childCommentPage: number = 1
+  @observable commentPageSize: number = 10
   @observable bankID: number = 0
   @observable answers = observable.map({})  // {question_id,answer}
   @observable favorites = observable.map({})  //
+  @observable comments = observable.map({})  //
   @observable currentIsFavorites = false
   @observable last = 0 //记录上次做的最后一题的编号
   @observable loading = false
+  @observable commentLoading = false
+  @observable childCommentLoading = false
   @observable addFavLoading = false
 
   constructor(){
@@ -94,6 +102,97 @@ export default class QuestionStore {
     }) )
   }
 
+  @action likeByUser = (comment_id , user_id: number) =>{
+    userLikeComment({id:comment_id,user_id}).then(action((res) => {
+      if ( res.success && res.code === 10200  ) {
+      }
+    }))
+  }
+
+  @action dislikeByUser = (comment_id ,user_id:number)=>{
+    userDislikeComment({id:comment_id,user_id}).then(action((res) => {
+      console.log(res)
+      if ( res.success && res.code === 10200  ) {
+        console.log(res.body)
+      }
+    }))
+  }
+
+  mergeComments = (list) => {
+    for (let i=0; i< list.length;i++ ){
+      let item = list[i]
+      let parent = item.parent
+      item['username'] =" item.user.nickname "
+      item['avatar'] = "http://www.qqzhi.com/uploadpic/2015-01-03/210127119.jpg"
+      if ( !this.comments.has(parent)){
+        this.comments.set(parent,[])
+      }
+      this.comments.set(parent,[...this.comments.get(parent) ,item])
+  }
+  }
+
+  @action fetchComments = async (id: number) => {
+    if (this.commentLoading){
+      return 
+    }
+    this.commentLoading = true
+    queryComments({id, page:this.commentPage, pageSize:this.commentPageSize }).then(action( (res)=>{
+      
+      if ( res.success && res.code === 10200  ) {
+        this.mergeComments(res.body.comments)
+
+      //   for (let i=0; i< res.body.comments.length;i++ ){
+      //     let item = res.body.comments[i]
+      //     let parent = item.parent
+      //     item['username'] =" item.user.nickname "
+      //     item['avatar'] = "http://www.qqzhi.com/uploadpic/2015-01-03/210127119.jpg"
+      //     if ( !this.comments.hasOwnProperty(parent)){
+      //       this.comments[parent] = []
+      //     }
+      //     this.comments[parent].push(item)
+      // }
+
+        this.commentPage +=  1
+        this.commentTotal = res.body.total
+      }
+
+      this.commentLoading = false
+    }) )
+  }
+  
+  @action fetchChildComments = async (parent: number) => {
+    if (this.childCommentLoading){
+      return 
+    }
+
+    this.childCommentLoading = true
+    queryChildComments({id:parent, page:this.childCommentPage, pageSize:this.commentPageSize }).then(action( (res)=>{
+      
+      if ( res.success && res.code === 10200  ) {
+        this.mergeComments(res.body.comments)
+
+        this.childCommentPage +=  1
+      }
+
+      this.childCommentLoading = false
+    }) )
+  }
+
+  
+
+  @action addComments = (comment) => {
+    this.commentLoading = true
+    createComments(comment).then(action( (res)=>{
+      if ( res.success && res.code === 10200  ) {
+        comment.id = res.body.id 
+        this.mergeComments([comment])
+      }
+
+      this.commentLoading = false
+    }) )
+  }
+
+
   @action setCurrent = (index,callback ) => {
 
     if ( index < this.questions.length  && index >= -1) {
@@ -128,10 +227,10 @@ export default class QuestionStore {
     this.answers.set(question_id,{bank_id,question_id,type,options,filling_answers,truefalse,result } )
   }
 
-  @action isUserFavoritesAction = (userid) => {
+  @action isUserFavoritesAction = (user_id) => {
     if ( !this.questions.length || this.current < 0 || this.current >= this.total || this.current >= this.questions.length) return
     let id = this.questions[this.current].id
-    queryFavoritesStatusByUserID({id,userid}).then((res) => {
+    queryFavoritesStatusByUserID({id,user_id}).then((res) => {
       if ( res.success && res.code === 10200  ) {
         this.favorites.set(id, res.body.isFavorites)
         this.currentIsFavorites = res.body.isFavorites

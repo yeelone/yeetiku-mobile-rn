@@ -24,11 +24,8 @@ export default class PracticeIndex extends Component {
       sliderValue: 0.3
     }
 
-  componentWillMount(){
-    this.props.bankStore.fetchByUser()
-  }
-
   componentDidMount(){
+    this.props.bankStore.fetchByUser()
     this.refs.modal1.close()
   }
 

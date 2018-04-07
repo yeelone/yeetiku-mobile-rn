@@ -48,34 +48,42 @@ export default class ProfileScreen extends Component {
                 </Card>
                 <Card >
                   <CardItem button  onPress={()=> this.navTo('ProfileInfo')} style={{backgroundColor:"#f1c40f"}}>
+                    <CardLeft>
                      <Entypo name="user" size={24} />
                      <Text>  个人信息</Text>
-                     <Right>
+                     </CardLeft>
+                     <CardRight>
                       <Icon name="arrow-forward" />
-                    </Right>
+                    </CardRight>
                    </CardItem>
 
                    <CardItem button onPress={()=> this.navTo('FeedBack')} style={{backgroundColor:"#e74c3c"}}>
+                   <CardLeft>
                      <Entypo name="eye" size={24} />
                      <Text>  关于</Text>
-                     <Right>
+                     </CardLeft>
+                     <CardRight>
                       <Icon name="arrow-forward" />
-                    </Right>
+                    </CardRight>
                    </CardItem>
 
                   <CardItem button onPress={()=> this.navTo('FeedBack')} style={{backgroundColor:"#e67e22"}}>
-                    <Entypo name="pencil" size={24} />
-                    <Text>  反馈</Text>
-                    <Right>
+                    <CardLeft>
+                      <Entypo name="pencil" size={24} />
+                      <Text>  反馈</Text>
+                    </CardLeft>
+                    <CardRight>
                      <Icon name="arrow-forward" />
-                   </Right>
+                   </CardRight>
                   </CardItem>
                   <CardItem button onPress={()=>{userStore.logout();this.navTo('Login')}} style={{backgroundColor:"#1abc9c"}}>
-                    <Entypo name="log-out" size={24} />
+                  <CardLeft>
+                     <Entypo name="log-out" size={24} />
                      <Text>  注销</Text>
-                     <Right>
+                    </CardLeft>
+                     <CardRight>
                       <Icon name="arrow-forward" />
-                    </Right>
+                    </CardRight>
                    </CardItem>
                 </Card>
             </Content>
@@ -91,4 +99,13 @@ const BorderView = styled.View`
   margin:10;
   border-style:dashed;
   border-color: #2c3e50;
+`
+
+const CardLeft = styled.View`
+  flex:1;
+  flex-direction:row;
+`
+
+const CardRight = styled.View`
+  width:40;
 `

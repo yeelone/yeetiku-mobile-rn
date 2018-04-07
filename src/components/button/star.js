@@ -14,8 +14,8 @@ export default class StarButton extends Component {
     return (
       <Button onPress={() => this._checkStatus()} >
       { this.props.default ?
-        <Text><Entypo name="star" size={20} style={{color:"yellow"}} /></Text> :
-        <Text><Entypo name="star" size={20} style={{color:"white"}} /></Text>
+        <ButtonText><Entypo name="star" size={24} style={{color:"yellow"}} />收藏</ButtonText> :
+        <ButtonText><Entypo name="star" size={24} style={{color:"#b2bec3"}} />收藏</ButtonText>
       }
       </Button>
     )
@@ -25,6 +25,10 @@ export default class StarButton extends Component {
 const Button = styled.TouchableHighlight`
   justify-content: center;
   align-items: center;
-  flex:1;
-  width:40;
+  width:80;
+`
+
+const ButtonText = styled.Text`
+  color:#b2bec3;
+  font-size:14;
 `

@@ -14,7 +14,7 @@ import { RadioButtons } from 'react-native-radio-buttons'
 export default class Choice extends Component {
   @observable selectedOption = {}
   @observable selectedStyle = { fontWeight: 'bold',color:'#ffffff', backgroundColor:color.rightColor}
-  componentWillMount(){
+  componentDidMount(){
     const { question, initial } = this.props
     const { options } = question
     if ( initial ) {

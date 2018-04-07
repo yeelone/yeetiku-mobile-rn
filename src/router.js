@@ -81,7 +81,7 @@ const MainNavigator =  StackNavigator({
   ProfileSexEditor:{ screen:ProfileSexEditor, path: 'profile-field/:sex' },
   ProfilePasswordEditor:{ screen:ProfilePasswordEditor, path: 'profile-field/:password' },
   Practing:{ path: 'practing/:type',screen: Practing},
-  QuestionComments:{ screen: QuestionComments},
+  QuestionComments:{ path: 'comments/:id', screen: QuestionComments},
   Banks:{screen: Banks},
 }, {
   initialRouteName: 'Login',
@@ -102,7 +102,7 @@ const RootNavigator =  StackNavigator({
   initialRouteName: 'Splash',
   headerMode: 'none',
   cardStyle: {
-      paddingTop: Platform.OS === 'ios' ? (StatusBar.currentHeight + 10) : StatusBar.currentHeight,
+      paddingTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
       backgroundColor: color.theme
     }
 })

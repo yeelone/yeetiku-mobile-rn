@@ -33,7 +33,6 @@ export default class UserStore {
     setHttpBaseUrl(domain, cfg.config.apiPrefix)
     this.loading = true
     return requestLogin({email:this.email, password:this.password}).then(action( (res)=>{
-      console.log("res", res )
       if ( res.success && res.code === 10200  ) {
           saveToken(res.token)
           let user = {domain:this.domain, ...res.body.user}
@@ -42,7 +41,6 @@ export default class UserStore {
           }else{
             user['password'] = ""
           }
-          console.log("request logined user " , user )
           saveUser(user)
           saveLoginStatus({isLoginedIn: true,user,domain:this.domain})
           this.id = res.body.id
@@ -137,7 +135,7 @@ export default class UserStore {
 
       this.loading = true
       this.loadResult = false
-
+      
       update(user).then(action( (res)=>{
         if ( res.success && res.code === 10200  ) {
           this.loadResult = true

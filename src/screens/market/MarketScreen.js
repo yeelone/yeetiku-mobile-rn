@@ -43,6 +43,8 @@ export default class Market extends Component {
     const type = navigation.state.params.type || null
     if (type === "tags"){
       bankStore.fetchByTag()
+    }else if (type === "search"){
+        // do nothing
     }else{
       bankStore.fetchAll("name", this.searchValue)
     }

@@ -17,7 +17,7 @@ export default class ProfileFieldEditor extends Component {
     title: '更改性别',
   }
 
-  componentWillMount(){
+  componentDidMount(){
       const { user }  = this.props.userStore
       this.selectedOption = user.sex
   }

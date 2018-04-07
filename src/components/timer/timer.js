@@ -23,7 +23,7 @@ export default class Timer extends Component {
   @observable hour = 0
   @observable second = 0
 
-  componentWillMount(){
+  componentDidMount(){
     this.timer && clearInterval(this.timer)
   }
 

@@ -1,8 +1,8 @@
 /* @flow */
 
 import React,{Component} from 'react'
-import styled from 'styled-components/native'
-import { View,Text,TouchableHighlight,Image } from 'react-native'
+import styled, { css }  from 'styled-components/native'
+import { View,Text,TouchableOpacity,Image,Platform } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import color from '../colors'
 
@@ -18,17 +18,19 @@ class Back extends Component {
    }
  }
 
-export default function header({ navigation, title , style , hasBack, right  }) {
+export default function header({ navigation, title , style , hasBack, left,right  }) {
     const logowhite = require('../../images/logowhite.png')
     hasBack = hasBack || false
-    style = style || { backgroundColor: color.theme }
-    title = title || <Logo source={logowhite} />
+    style = style || { backgroundColor: color.bar }
+    title = title || null
     right = right || <View style={{flex:1, width:40}}></View>
+    left = left || null
     const {goBack} = navigation
     const backButton =  hasBack ?  <Back navigation={navigation}/>  :  null //占位
     return (
       <Container style={style}>
           <Left>
+            { left }
             { backButton }
           </Left>
             { title }
@@ -47,9 +49,10 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  ${Platform.select({ios:css`shadowOpacity: 0.3,shadowRadius: 3,shadowOffset: { height: 0, width: 0},`,android: css`elevation:5`})};
 `
 
-const BackButton = styled.TouchableHighlight`
+const BackButton = styled.TouchableOpacity`
   flex:1;
   width:40;
   justify-content: center;
@@ -58,8 +61,10 @@ const BackButton = styled.TouchableHighlight`
 
 const Left = styled.View`
   align-self: flex-start;
-  width:20;
+  flex:1;
   height:55;
+  justify-content: center;
+  padding-left:20;
 `
 
 const Right = styled.View`

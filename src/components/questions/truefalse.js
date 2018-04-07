@@ -14,7 +14,7 @@ export default class Truefalse extends Component {
   @observable selectedOption = null
   @observable selectedStyle = { fontWeight: 'bold',color:'#ffffff', backgroundColor:color.rightColor}
 
-  componentWillMount(){
+  componentDidMount(){
     const { initial } = this.props
     if ( initial !== null ) {
       if (initial){

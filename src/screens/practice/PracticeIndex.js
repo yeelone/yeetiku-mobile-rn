@@ -9,10 +9,9 @@ import Modal from 'react-native-modalbox'
 import PracticeModal from './PracticeModal'
 import InfoBar from './InfoBar'
 import styled from 'styled-components/native'
-import color from '../../components/colors'
 import TopHeader  from '../../components/header'
 import ThumbnailListItem from '../../components/metaList/item'
-
+import colors from '../../components/colors'
 @inject('bankStore','questionStore','userStore')
 @observer
 export default class PracticeIndex extends Component {
@@ -25,8 +24,9 @@ export default class PracticeIndex extends Component {
 
   @observable onEndReachedCalledDuringMomentum = true
 
-  componentWillMount(){
+  componentDidMount(){
     this.asyncInitialData()
+    this.refs.modal1.close()
   }
 
   asyncInitialData = () => {
@@ -34,10 +34,6 @@ export default class PracticeIndex extends Component {
     bankStore.cleanUserBanks()
     bankStore.fetchRecords(userStore.id)
     bankStore.fetchByUser(userStore.id)
-  }
-
-  componentDidMount(){
-    this.refs.modal1.close()
   }
 
   onClose() {
@@ -68,11 +64,11 @@ export default class PracticeIndex extends Component {
     let total = 0
     if ( banksTotal !== -1 ) total = banksTotal
     return (
-      <Container style={{backgroundColor:color.background}}>
+      <Container style={{backgroundColor:"#ffffff"}}>
           <TopHeader
             navigation={navigation}
-            title={ <Text style={{color:'white', fontSize:20 }}>练习</Text>}
-            style={{ backgroundColor:color.theme }}
+            left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>练习</Text>}
+            style={{ backgroundColor:colors.theme }}
             />
             <InfoBar navigation={navigation}/>
             <DesTextView>
@@ -86,6 +82,7 @@ export default class PracticeIndex extends Component {
                                                           key={item.key}
                                                           onPress={this._handleItemPress}/>}
               refreshing={bankStore.loading}
+              ItemSeparatorComponent={()=><View style={{height:2,borderBottomWidth:1,borderBottomColor:"#cccccc"}}></View>}
               onRefresh={()=>this._onRefresh()}
               onEndReachedThreshold={0.5}
               onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false }}

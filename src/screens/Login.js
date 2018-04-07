@@ -26,7 +26,7 @@ export default class Login extends Component {
     this.lastBackPressed = 0
   }
 
-  componentWillMount() {
+  componentDidMount() {
       this.checking = true
       BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid )
       getLoginStatus().then( async (data)=>{

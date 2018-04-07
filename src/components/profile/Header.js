@@ -41,6 +41,8 @@ const Header = styled.View`
   justify-content:center;
   padding:10;
   flex:1;
+  margin-bottom:10;
+  
 `
 const ImageWrap = styled.View`
   width:120;

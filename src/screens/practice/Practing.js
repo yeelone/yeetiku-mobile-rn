@@ -16,9 +16,8 @@ import Truefalse from '../../components/questions/truefalse'
 import Filling from '../../components/questions/filling'
 import StarButton  from '../../components/button/star'
 import Timer from '../../components/timer/timer'
-import color from '../../components/colors'
+import colors from '../../components/colors'
 
-import { Comments } from 'react-native-easy-comments'
 import dataMap from '../../../mock/data'
 
 const QuestionType = {
@@ -54,7 +53,20 @@ export default class Practing extends Component {
     this.questionType = ''
   }
 
-  componentWillMount(){
+  fetchQuestions = () => {
+    const { navigation,bankStore,questionStore,userStore } = this.props
+    const { banks,currentIndex } = bankStore
+    this.questionType = navigation.state.params.type || null
+    if ( this.questionType === 'favorites') {
+      questionStore.fetchFavorites(userStore.id)
+    }else if (this.questionType === 'wrong') {
+      questionStore.fetchWrong(userStore.id)
+    }else if (this.questionType === 'banks') {
+      questionStore.getByBankID(banks[currentIndex].id)
+    }
+  }
+
+  componentDidMount(){
     Animated.timing(                            // Animate over time
       this.state.fadeAnim,                      // The animated value to drive
       {
@@ -74,22 +86,8 @@ export default class Practing extends Component {
     this.fetchQuestions()
     this.timer && clearInterval(this.timer)
     clearTimeout(this._timer)
-  }
 
-  fetchQuestions = () => {
-    const { navigation,bankStore,questionStore,userStore } = this.props
-    const { banks,currentIndex } = bankStore
-    this.questionType = navigation.state.params.type || null
-    if ( this.questionType === 'favorites') {
-      questionStore.fetchFavorites(userStore.id)
-    }else if (this.questionType === 'wrong') {
-      questionStore.fetchWrong(userStore.id)
-    }else if (this.questionType === 'banks') {
-      questionStore.getByBankID(banks[currentIndex].id)
-    }
-  }
 
-  componentDidMount(){
     //当前练习内容是从题库里取的话，就定时向服务器同步做题记录
       const user_id = this.props.userStore.id
       const bank_id = this.props.bankStore.id
@@ -195,6 +193,11 @@ export default class Practing extends Component {
       }
   }
 
+  _handleReplyAction = (id) => {
+      const {navigation} = this.props
+      navigation.navigate('QuestionComments',{id})
+  }
+
   _handleNext = () => {
     this.__handleNextPrev( this.props.questionStore.current +1 )
   }
@@ -203,25 +206,7 @@ export default class Practing extends Component {
     this.__handleNextPrev(  this.props.questionStore.current - 1 )
   }
 
-  onLike  = ({item}) => {
-    alert("onLike"+item.id);
-  }
-
-  onDown = ({item}) => {
-    alert("onDown" +  item.id );
-  }
-
-  onSend = ({content}) => {
-    alert("onSend: " + content  );
-  }
-
-  onFollow = ({item}) => {
-    alert("onFollow : "+ item.id );
-  }
-
-  onEndReached = (id) => {
-    alert("onEndReached : " + id);
-  }
+  
 
   renderHeader = (title) => {
     return (
@@ -264,12 +249,18 @@ export default class Practing extends Component {
   }
 
   renderActions = () => {
-    const { currentIsFavorites } = this.props.questionStore
+    const { questions, current,currentIsFavorites } = this.props.questionStore
     return (
-      <View style={{height:30,flexDirection:'row'}}>
+      <ActionView>
+        <ActionBtn>
           <StarButton  default={currentIsFavorites} onPress={() => this._handleStarAction(currentIsFavorites) } />
-          <Text>回复</Text>
-      </View>
+        </ActionBtn>
+        <ActionBtn> 
+          <ReplyBtn  onPress={() => this._handleReplyAction(questions[current].id) }>
+            <ReplyBtnText><Entypo name="reply" size={24} style={{color:"#b2bec3"}} />回复</ReplyBtnText>
+          </ReplyBtn>
+        </ActionBtn>
+      </ActionView>
     )
   }
 
@@ -312,19 +303,14 @@ export default class Practing extends Component {
           navigation={navigation}
           hasBack={true}
           title={ current_question.type ? this.renderHeader(QuestionType[current_question.type]) : this.renderHeader("")  }
-          right={ addFavLoading ?
-              <ActivityIndicator
-              animating={addFavLoading}
-              style={{height:55,width:30}}
-              size="small" />
-                : <StarButton default={currentIsFavorites} onPress={() => this._handleStarAction(currentIsFavorites) } /> }
+          style={{ backgroundColor:colors.theme }}
           />
 
-        <Content>
+        <Content style={[styles.content]}>
           <ActivityIndicator
             animating={loading}
             size="small" />
-         <CardView>
+          <CardView>
               { current_question.type ? (
                   <CardViewHeader>
                     <View style={{ flex:1, padding:20}}>
@@ -333,13 +319,13 @@ export default class Practing extends Component {
                     </View>
                   </CardViewHeader>
               ) :null }
-              <View style={{flex:1,backgroundColor:"#ffffff",padding:10}}>
+              <CardViewBody >
                 { questionComponent() }
                 { this.renderModal() }
-              </View>
+              </CardViewBody>
               {  this.renderActions()   }
-
           </CardView>
+            
         </Content>
         <Footer>
           <FooterTab style={{backgroundColor:"#ecf0f1"}}>
@@ -370,20 +356,55 @@ const CardView = styled.View`
     justify-content: center;
     align-items: center;
     margin:20;
-    background-color:#dedede;
+    background-color:#ffffff;
     border-radius:10;
-    min-height:350 ;
+    flex:1;
+    elevation:4;
 `
+const ActionView = styled.View`
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    margin:20;
+    border-radius:10;
+    height:50 ;
+`
+
 const CardViewHeader = styled.View`
     background-color:#ffffff;
     flex-direction:row;
+    margin-top:10;
 `
+
+const CardViewBody = styled.View`
+    background-color:#ffffff;
+`
+
+
+const ReplyBtn = styled.TouchableHighlight `
+  justify-content: center;
+  align-items: center;
+`
+
+const ReplyBtnText = styled.Text `
+  color:#b2bec3;
+`
+
+const ActionBtn = styled.TouchableHighlight`
+  width:200;
+  padding:15;
+  background-color:#ffffff;
+`
+
 const styles = StyleSheet.create({
     container:{
       flex: 1,
     	justifyContent: 'center',
     	alignItems: 'center',
-    	backgroundColor: '#F5FCFF',
+    },
+    content:{
+      borderRadius:10,
+      
     },
     centering:{
       alignItems:'center',

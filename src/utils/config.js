@@ -15,6 +15,7 @@ const api = {
     banks:'/banks',
     upload:'/upload',
     feedback:'/feedback',
+    comments:'/comments',
 }
 
 const defaultSettings = {
