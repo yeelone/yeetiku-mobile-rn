@@ -1,15 +1,14 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View,Text, } from 'react-native'
+import { View,Text,StyleSheet } from 'react-native'
 import { Button, Item, Input,Icon } from 'native-base'
-import styled from 'styled-components/native'
-
+import colors from '../../components/colors'
 export default class Search extends Component {
 
   constructor(){
     super()
-    this.searchValue = ""
+    this.searchValue = ''
   }
 
   _onChangeText = (text) => {
@@ -22,25 +21,33 @@ export default class Search extends Component {
 
   render() {
     return (
-        <Container>
-            <Item>
-                <Input
-                    placeholder="Search"
-                    returnKeyType='search'
-                    onChangeText={this._onChangeText}
-                    onSubmitEdit={ () => {}}
-                    />
-                <Button transparent onPress={()=>this._handleSearch()}>
-                    <Icon name="ios-search" />
-                    <Text>Search</Text>
-                </Button>
-            </Item>
-        </Container>
+        <View style={[styles.container]}>
+            <Input
+                placeholder='Search'
+                returnKeyType='search'
+                onChangeText={this._onChangeText}
+                style={[styles.input]}
+                onSubmitEdit={ () => this._handleSearch()}
+                />
+            <Button transparent onPress={()=>this._handleSearch()}>
+                <Icon name='ios-search' style={{color:'#ffffff'}}/>
+            </Button>
+        </View>
     )
   }
 }
 
-
-const Container = styled.View`
-    margin:20;
-`
+const styles = StyleSheet.create({
+    container:{
+        paddingLeft:20,
+        paddingRight:20,
+        flex:1,
+        flexDirection:'row'
+    },
+    input :{
+        backgroundColor:'#ffffff',
+        borderRadius:30,
+        height:30,
+        marginTop:10,
+    }
+})

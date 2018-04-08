@@ -298,7 +298,7 @@ export default class Practing extends Component {
 
     return (
 
-      <Container >
+      <Container style={{ backgroundColor:colors.theme }}>
         <Header
           navigation={navigation}
           hasBack={true}
@@ -380,8 +380,7 @@ const CardViewBody = styled.View`
     background-color:#ffffff;
 `
 
-
-const ReplyBtn = styled.TouchableHighlight `
+const ReplyBtn = styled.TouchableOpacity `
   justify-content: center;
   align-items: center;
 `
@@ -390,8 +389,7 @@ const ReplyBtnText = styled.Text `
   color:#b2bec3;
 `
 
-const ActionBtn = styled.TouchableHighlight`
-  width:200;
+const ActionBtn = styled.TouchableOpacity`
   padding:15;
   background-color:#ffffff;
 `

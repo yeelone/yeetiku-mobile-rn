@@ -22,7 +22,7 @@ export default class StarButton extends Component {
   }
 }
 
-const Button = styled.TouchableHighlight`
+const Button = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   width:80;

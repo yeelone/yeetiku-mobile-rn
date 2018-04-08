@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,Image,StyleSheet } from 'react-native'
+import { View,Text,Image,StyleSheet,Platform,StatusBar } from 'react-native'
 import { Container, Content, List, ListItem, Icon,Thumbnail, Left, Body, Right, Switch,Toast } from 'native-base'
 import { EvilIcons } from '@expo/vector-icons'
 import { ImagePicker } from 'expo'
@@ -15,6 +15,9 @@ export default class ProfileInfo extends Component {
 
   static navigationOptions = {
     title: '编辑资料',
+    cardStyle: {
+      paddingTop: Platform.OS === 'ios' ? 0: StatusBar.currentHeight,
+    }
   }
 
   _avatarPicker = async () => {
@@ -50,11 +53,11 @@ export default class ProfileInfo extends Component {
     const { userStore } = this.props
     const { user,loading, progress,done } = userStore
     return (
-      <Container>
+      <View style={{flex:1}}> 
           { loading ? <Progress.Bar borderRadius={0} width={null}  progress={progress}  /> : null  }
         <Content>
-          <List>
-            <ListItem icon onPress={() => this._avatarPicker() }>
+          <List style={{backgroundColor:'red'}}>
+            <ListItem icon itemDivider onPress={() => this._avatarPicker() }>
               <Body>
                 <Text>头像</Text>
               </Body>
@@ -63,7 +66,7 @@ export default class ProfileInfo extends Component {
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
             </ListItem>
-            <ListItem icon onPress={() => this.navTo('ProfileNameEditor', 'name') }>
+            <ListItem icon itemDivider onPress={() => this.navTo('ProfileNameEditor', 'name') }>
               <Body>
                 <Text>姓名</Text>
               </Body>
@@ -72,7 +75,7 @@ export default class ProfileInfo extends Component {
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
             </ListItem>
-            <ListItem icon onPress={() => this.navTo('ProfileNameEditor','nickname') }>
+            <ListItem icon itemDivider onPress={() => this.navTo('ProfileNameEditor','nickname') }>
               <Body>
                 <Text>座右铭</Text>
               </Body>
@@ -81,7 +84,7 @@ export default class ProfileInfo extends Component {
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
             </ListItem>
-            <ListItem icon onPress={() => this._changeSex() }>
+            <ListItem icon itemDivider onPress={() => this._changeSex() }>
               <Body>
                 <Text>性别</Text>
               </Body>
@@ -90,7 +93,7 @@ export default class ProfileInfo extends Component {
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
             </ListItem>
-            <ListItem icon onPress={() => this._changePassword() }>
+            <ListItem icon itemDivider onPress={() => this._changePassword() }>
               <Body>
                 <Text>修改密码</Text>
               </Body>
@@ -100,7 +103,7 @@ export default class ProfileInfo extends Component {
             </ListItem>
           </List>
         </Content>
-      </Container>
+      </View>
     );
   }
 }

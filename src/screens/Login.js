@@ -109,12 +109,9 @@ export default class Login extends Component {
                 :
                 <FormContainer>
                   <LoginForm onSubmit={() => this.handlerSubmit()}/>
-
                   <TouchableOpacity style={{justifyContent: 'center',alignItems: 'center'}} onPress={()=> navigation.navigate("Register")}>
                       <Text style={{color:"#cccccc",backgroundColor:"rgba(0,0,0,0)"}}>还没有账号？点击注册</Text>
                   </TouchableOpacity>
-
-
                 </FormContainer>
               }
 

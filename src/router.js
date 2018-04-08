@@ -102,7 +102,6 @@ const RootNavigator =  StackNavigator({
   initialRouteName: 'Splash',
   headerMode: 'none',
   cardStyle: {
-      paddingTop: Platform.OS === 'ios' ? 20 : StatusBar.currentHeight,
       backgroundColor: color.theme
     }
 })

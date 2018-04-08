@@ -38,57 +38,51 @@ export default class ProfileScreen extends Component {
     }
 
     return (
-      <Container>
-          <Container style={{margin:10}}>
-            <Content>
-               <Card style={{backgroundColor:"#34495e"}}>
-                <BorderView>
-                  <Header {...headerProps}/>
-                </BorderView>
-                </Card>
-                <Card >
-                  <CardItem button  onPress={()=> this.navTo('ProfileInfo')} style={{backgroundColor:"#f1c40f"}}>
-                    <CardLeft>
-                     <Entypo name="user" size={24} />
-                     <Text>  个人信息</Text>
-                     </CardLeft>
-                     <CardRight>
-                      <Icon name="arrow-forward" />
-                    </CardRight>
-                   </CardItem>
+        <Container style={{backgroundColor:"#34495e"}}>
+          <Content style={{paddingTop:10}}>
+              <BorderView>
+                <Header {...headerProps}/>
+              </BorderView>
+              <CardItem button  onPress={()=> this.navTo('ProfileInfo')} style={{backgroundColor:"#f1c40f"}}>
+                <CardLeft>
+                  <Entypo name="user" size={24} />
+                  <Text>  个人信息</Text>
+                  </CardLeft>
+                  <CardRight>
+                  <Icon name="arrow-forward" />
+                </CardRight>
+              </CardItem>
 
-                   <CardItem button onPress={()=> this.navTo('FeedBack')} style={{backgroundColor:"#e74c3c"}}>
-                   <CardLeft>
-                     <Entypo name="eye" size={24} />
-                     <Text>  关于</Text>
-                     </CardLeft>
-                     <CardRight>
-                      <Icon name="arrow-forward" />
-                    </CardRight>
-                   </CardItem>
+              <CardItem button onPress={()=> this.navTo('FeedBack')} style={{backgroundColor:"#e74c3c"}}>
+                <CardLeft>
+                  <Entypo name="pencil" size={24} />
+                  <Text>  反馈</Text>
+                </CardLeft>
+                <CardRight>
+                 <Icon name="arrow-forward" />
+              </CardRight>
+              </CardItem>
 
-                  <CardItem button onPress={()=> this.navTo('FeedBack')} style={{backgroundColor:"#e67e22"}}>
-                    <CardLeft>
-                      <Entypo name="pencil" size={24} />
-                      <Text>  反馈</Text>
-                    </CardLeft>
-                    <CardRight>
-                     <Icon name="arrow-forward" />
-                   </CardRight>
-                  </CardItem>
-                  <CardItem button onPress={()=>{userStore.logout();this.navTo('Login')}} style={{backgroundColor:"#1abc9c"}}>
-                  <CardLeft>
-                     <Entypo name="log-out" size={24} />
-                     <Text>  注销</Text>
-                    </CardLeft>
-                     <CardRight>
-                      <Icon name="arrow-forward" />
-                    </CardRight>
-                   </CardItem>
-                </Card>
+              <CardItem button onPress={()=> this.navTo('FeedBack')} style={{backgroundColor:"#e67e22"}}>
+                <CardLeft>
+                  <Entypo name="eye" size={24} />
+                  <Text>  关于</Text>
+                </CardLeft>
+                <CardRight>
+                  <Icon name="arrow-forward" />
+                </CardRight>
+              </CardItem>
+              <CardItem button onPress={()=>{userStore.logout();this.navTo('Login')}} style={{backgroundColor:"#1abc9c"}}>
+              <CardLeft>
+                  <Entypo name="log-out" size={24} />
+                  <Text>  注销</Text>
+                </CardLeft>
+                  <CardRight>
+                  <Icon name="arrow-forward" />
+                </CardRight>
+                </CardItem>
             </Content>
         </Container>
-      </Container>
     )
   }
 }
@@ -99,6 +93,7 @@ const BorderView = styled.View`
   margin:10;
   border-style:dashed;
   border-color: #2c3e50;
+  flex:1;
 `
 
 const CardLeft = styled.View`
@@ -107,5 +102,5 @@ const CardLeft = styled.View`
 `
 
 const CardRight = styled.View`
-  width:40;
+  width:10;
 `

@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react'
 import { View,Text,FlatList,StyleSheet} from 'react-native'
 import { Header, Item, Input, Icon, Button } from 'native-base'
 import styled from 'styled-components/native'
-import color from '../../components/colors'
+import colors from '../../components/colors'
 import ThumbnailListItem from '../../components/metaList/item'
 
 import { Ionicons } from '@expo/vector-icons'
@@ -70,10 +70,10 @@ export default class Market extends Component {
     let total = 0
     if ( bankMarketTotal !== -1 ) total = bankMarketTotal
     return (
-      <Container style={{backgroundColor:color.background}}>
+      <Container style={{backgroundColor:colors.background}}>
         <Content>
-            <Header searchBar rounded style={{backgroundColor:color.theme }}>
-              <Item>
+            <Header searchBar rounded style={{padding:10,backgroundColor:colors.theme }}>
+              <SearchBar>
                 <Input
                   placeholder="Search"
                   returnKeyType='search'
@@ -81,11 +81,10 @@ export default class Market extends Component {
                   onSubmitEdit={ () => {}}
                   />
                 <Button transparent onPress={()=>this._handleSearch()}>
-                <Icon name="ios-search" />
-                  <Text>Search</Text>
+                  <Icon name="ios-search" style={{color:colors.theme}}/>
+                  <Text style={{color:colors.theme}}>Search</Text>
                 </Button>
-              </Item>
-
+              </SearchBar>
             </Header>
               {/* <DesTextView>
                  <Text style={{color:"#666666"}}> {total}个题库 </Text>
@@ -145,6 +144,17 @@ const DesTextView = styled.View`
   margin-right:20;
   margin-top:5;
 `
+
+const SearchBar = styled.View`
+    padding-left:20;
+    padding-right:20;
+    flex:1;
+    flex-direction:row;
+    background-color:#ffffff;
+    border-radius:30;
+`
+
+
 const styles = StyleSheet.create({
 
   modal: {

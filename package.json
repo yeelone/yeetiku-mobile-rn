@@ -54,7 +54,7 @@
     "react-native-storage": "^0.2.2",
     "react-native-svg": "^5.5.1",
     "react-native-view-more-text": "^1.4.3",
-    "react-navigation": "^1.0.0-beta.27",
+    "react-navigation": "^1.5.11",
     "styled-components": "^1.4.6"
   }
 }

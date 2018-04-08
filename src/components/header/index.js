@@ -45,11 +45,12 @@ export default function header({ navigation, title , style , hasBack, left,right
 //  border-width:2;
 //  border-radius:5;
 const Container = styled.View`
-  height:55 ;
+  paddingTop:15;
+  height:65 ;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  ${Platform.select({ios:css`shadowOpacity: 0.3,shadowRadius: 3,shadowOffset: { height: 0, width: 0},`,android: css`elevation:5`})};
+  ${Platform.select({ios: css`shadow-color: black;shadow-opacity: 1;shadow-radius: 5;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
 
 const BackButton = styled.TouchableOpacity`

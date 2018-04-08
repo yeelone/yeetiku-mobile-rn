@@ -12,23 +12,32 @@ function header ({ name,domain, backgroundImage, avatar , nickname  }) {
   avatar = <ProfileImage source={{uri:avatar}} />  || <ProfileImage source={require('../../images/me.jpg')} />
   nickname = nickname || 'edit your motto'
   return (
-       <Header>
-          <View style={{flex:1, flexDirection:'row'}}>
-            <Info>
-                <Logo source={logo} />
-                <Name>{name} </Name>
-                <Desc>{nickname} </Desc>
-            </Info>
+       <Container>
+          <View style={{flex:1}}>
+            <Logo source={logo} />
             <ImageWrap>
-              {avatar}
+                {avatar}
             </ImageWrap>
+            <Info>
+                <Name>{name}</Name>
+                <Desc>{nickname}</Desc>
+            </Info>
+            
           </View>
           <Footer>
             <FooterText>@{domain}</FooterText>
           </Footer>
-       </Header>
+       </Container>
   )
 }
+
+
+
+const Container = styled.View`
+  justify-content:center;
+  margin-bottom:10;
+  flex:1;
+`
 
 const Logo = styled.Image`
   width:50;
@@ -36,48 +45,41 @@ const Logo = styled.Image`
   align-self:stretch;
 `
 
-const Header = styled.View`
-  height:200;
-  justify-content:center;
-  padding:10;
-  flex:1;
-  margin-bottom:10;
-  
-`
 const ImageWrap = styled.View`
-  width:120;
-  height:120;
+  width:140;
+  height:140;
+  background-color:#2c3e50;
+  align-self:center;
+  border-radius:80;
 `
 
 const Info = styled.View`
   flex:1;
-  border-bottom-width:2;
-  border-radius:5;
-  border-style:dashed;
-  border-color: #cccccc;
+  align-self:center;
 `
 
 const ProfileImage = styled.Image`
-  flex:1;
-  width:auto;
-  align-self:stretch;
-  border-radius:10;
-  border-color:#2c3e50;
-  border-width:2;
-  margin-top:20;
+  width:120;
+  height:120;
+  border-radius:60;
+  align-self:center;
+  margin-top:10;
 `
 
 const Name = styled.Text`
   margin:10;
   font-size:16;
   font-weight:bold;
-  color:white;
+  justify-content:center;
+  align-self:center;
 `
 
 const Desc = styled.Text`
    margin:10;
    font-size:14;
    font-weight:300;
+   justify-content:center;
+   align-self:center;
 `
 
 const Footer = styled.View`

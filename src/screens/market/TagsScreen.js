@@ -3,11 +3,11 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,FlatList,TouchableOpacity,Dimensions,ScrollView } from 'react-native'
-import { Container,Content,Spinner,Button, Item, Input,Icon } from 'native-base'
+import { View,Text,FlatList,TouchableOpacity,Dimensions,ScrollView,Platform,StyleSheet } from 'react-native'
+import { Container,Content,Spinner,Button, Item, Input,Icon,Header } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 import Search from './Search'
-import styled from 'styled-components/native'
+import styled , { css }from 'styled-components/native'
 import TopHeader  from '../../components/header'
 import colors from '../../components/colors'
 
@@ -76,18 +76,17 @@ export default class TagsScreen extends Component {
            if (parent.tag){
                return (
                    <View key={parent.tag.id}>
-                       <View>
-                        <Level2Button onPress={() => this.jumpToMarket(parent.tag.id)} >
-                            <Text style={{ fontSize:18,color:"#2c3e50" }}> { parent.tag.name } > </Text>
-                        </Level2Button>
-                       </View>
+                            <Level2Button onPress={() => this.jumpToMarket(parent.tag.id)}>
+                              <Text style={{ fontSize:16,color:"#ffffff" }}> { parent.tag.name } </Text>
+                            </Level2Button>
+                          {/* <Entypo name="controller-play" size={36} style={{marginLeft:-10,color:colors.theme}}/> */}
                        <TagItemList>
                         {Object.keys(parent.children).map((key2)=>{
                             const child = parent.children[key2].tag
                             if (child){
                                 return(
                                   <Button key={child.id} light
-                                        style={{margin:5,padding:10}}>
+                                        style={[styles.tagItem]}>
                                       <TouchableOpacity onPress={() => this.jumpToMarket(child.id)}>
                                         <Text><Entypo name="price-tag" size={14} style={{color:'#ffeaa7'}}/> {child.name} </Text>
                                       </TouchableOpacity>
@@ -126,36 +125,38 @@ export default class TagsScreen extends Component {
       level2 = allTags[this.key]
     }
     return (
-        <Container style={{backgroundColor:"white"}}>
+        <Container>
           <TopHeader
             navigation={navigation}
-            left={ <Text style={{color:colors.headerTextColor,fontSize:24}}>所有标签</Text>}
-            style={{ backgroundColor:colors.theme,borderBottomWidth:0.5,borderBottomColor:"#dfe6e9",paddingLeft:20,paddingBottom:50 }}
+            left={ <Search onSearch={(value)=>this._handleSearch(value)} />}
+            style={{ backgroundColor:colors.theme,borderBottomWidth:0.5,borderBottomColor:"#dfe6e9",paddingLeft:10,paddingBottom:50 }}
             />
+              
             { loading ? <Spinner color='green' /> : null}
-            <ScrollView>
-                <Search onSearch={(value)=>this._handleSearch(value)} />
-                <View style={{flexDirection:'row'}}>
-                  <LeftPane>
-                    {
-                      Object.keys(allTags).map((key)=>{
-                                const item = allTags[key].tag
-                                return this.renderLevel1(item)
-                            })
-                    }
-                  </LeftPane>
-                  <RightPane>
-                      { this.renderLevel2( level2 ) }
-                  </RightPane>
-                </View>
-            </ScrollView>
+              <View style={{marginTop:10,flexDirection:'row'}}>
+              
+                <LeftPane>
+                  <ScrollView>
+                  {
+                    Object.keys(allTags).map((key)=>{
+                              const item = allTags[key].tag
+                              return this.renderLevel1(item)
+                          })
+                  }
+                  </ScrollView>
+                </LeftPane>
+                <RightPane>
+                  <ScrollView>
+                    { this.renderLevel2( level2 ) }
+                    </ScrollView>
+                </RightPane>
+              </View>
         </Container>
     )
   }
 }
 const LeftPane = styled.View`
-  align-items:flex-start;
-  width:100;
+  width:80;
   border-right-width:1;
   border-right-color:#cccccc;
 `
@@ -184,12 +185,42 @@ const Level1Button = styled.TouchableOpacity`
   border-bottom-color:#ecf0f1;
 `
 const Level2Button = styled.TouchableOpacity`
-  padding:20;
-  flex:1;
+  padding:3;
+  background-color:#636e72;
+  border-color: transparent;
+  border-top-width: 7;
+  border-top-color: transparent;
+  border-bottom-width: 7;
+  border-left-width: 10;
+  border-left-color: #2c3e50;
+  border-right-width: 10;
+  border-right-color: #2c3e50;
+  ${Platform.select({ios: css`shadow-color: #666666;shadow-opacity: 0.8;shadow-radius: 5;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
 const TagItemList = styled.View`
   flex-direction:row;
   align-items:flex-start;
   flex-wrap:wrap;
-  margin-left:15;
+  margin-left:5;
 `
+
+const styles = StyleSheet.create({
+  level2Btn:{
+    width: 0,
+    height: 0,
+    backgroundColor:colors.theme,
+    borderStyle:'solid',
+    borderTopWidth: 10,
+    borderTopColor: 'transparent',
+    borderRightWidth: 10,
+    borderRightColor: 'transparent',
+    borderLeftWidth: 5,
+    borderLeftColor: '#79bd9a',
+    borderBottomWidth: 10,
+    borderBottomColor: 'transparent',
+  },
+  tagItem:{
+    margin:5,
+    backgroundColor:"#cccccc"
+  },
+});
