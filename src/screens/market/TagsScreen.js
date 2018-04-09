@@ -77,7 +77,7 @@ export default class TagsScreen extends Component {
                return (
                    <View key={parent.tag.id}>
                             <Level2Button onPress={() => this.jumpToMarket(parent.tag.id)}>
-                              <Text style={{ fontSize:16,color:"#ffffff" }}> { parent.tag.name } </Text>
+                              <Text style={{ fontSize:16,color:"#636e72" }}> { parent.tag.name } </Text>
                             </Level2Button>
                           {/* <Entypo name="controller-play" size={36} style={{marginLeft:-10,color:colors.theme}}/> */}
                        <TagItemList>
@@ -88,7 +88,7 @@ export default class TagsScreen extends Component {
                                   <Button key={child.id} light
                                         style={[styles.tagItem]}>
                                       <TouchableOpacity onPress={() => this.jumpToMarket(child.id)}>
-                                        <Text><Entypo name="price-tag" size={14} style={{color:'#ffeaa7'}}/> {child.name} </Text>
+                                        <Text><Entypo name="price-tag" size={20} style={{color:'#b2bec3'}}/> {child.name} </Text>
                                       </TouchableOpacity>
                                     </Button>
                                 )
@@ -126,17 +126,14 @@ export default class TagsScreen extends Component {
     }
     return (
         <Container>
-          <TopHeader
-            navigation={navigation}
-            left={ <Search onSearch={(value)=>this._handleSearch(value)} />}
-            style={{ backgroundColor:colors.theme,borderBottomWidth:0.5,borderBottomColor:"#dfe6e9",paddingLeft:10,paddingBottom:50 }}
-            />
-              
+          <Header searchBar rounded style={{paddingTop:25,paddingBottom:10,backgroundColor:colors.theme }}>
+            <Search onSearch={(value)=>this._handleSearch(value)} />
+          </Header> 
             { loading ? <Spinner color='green' /> : null}
-              <View style={{marginTop:10,flexDirection:'row'}}>
+              <View style={{flex:1,marginTop:10,flexDirection:'row'}}>
               
                 <LeftPane>
-                  <ScrollView>
+                  <ScrollView >
                   {
                     Object.keys(allTags).map((key)=>{
                               const item = allTags[key].tag
@@ -159,6 +156,7 @@ const LeftPane = styled.View`
   width:80;
   border-right-width:1;
   border-right-color:#cccccc;
+
 `
 
 const RightPane = styled.View`
@@ -186,15 +184,15 @@ const Level1Button = styled.TouchableOpacity`
 `
 const Level2Button = styled.TouchableOpacity`
   padding:3;
-  background-color:#636e72;
+  background-color:#dfe6e9;
   border-color: transparent;
   border-top-width: 7;
   border-top-color: transparent;
   border-bottom-width: 7;
   border-left-width: 10;
-  border-left-color: #2c3e50;
+  border-left-color: #b2bec3;
   border-right-width: 10;
-  border-right-color: #2c3e50;
+  border-right-color: #b2bec3;
   ${Platform.select({ios: css`shadow-color: #666666;shadow-opacity: 0.8;shadow-radius: 5;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
 const TagItemList = styled.View`
@@ -221,6 +219,6 @@ const styles = StyleSheet.create({
   },
   tagItem:{
     margin:5,
-    backgroundColor:"#cccccc"
+    backgroundColor:"#dfe6e9"
   },
 });

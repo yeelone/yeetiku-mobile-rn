@@ -359,7 +359,6 @@ const CardView = styled.View`
     background-color:#ffffff;
     border-radius:10;
     flex:1;
-    elevation:4;
 `
 const ActionView = styled.View`
     flex-direction:row;

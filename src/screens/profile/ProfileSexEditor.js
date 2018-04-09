@@ -76,7 +76,7 @@ export default class ProfileFieldEditor extends Component {
             renderContainer={ renderContainer }
             />
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Button style={{backgroundColor:color.theme}} onPress={() => this._handlePress() }>
+              <Button style={{backgroundColor:color.theme,width:150,height:30, justifyContent: 'center',}} onPress={() => this._handlePress() }>
                 <Text style={{color:'white'}}> 保存 </Text>
               </Button>
             </View>

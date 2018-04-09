@@ -1,16 +1,17 @@
 /* @flow */
-import Expo from 'expo'
+
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { View,Text,TouchableHighlight,Image,TextInput } from 'react-native'
-import styled from 'styled-components/native'
 import { ProgressModal } from '../components/modal'
-import { ImagePicker } from 'expo'
+import Expo,{ ImagePicker } from 'expo'
 import { Entypo } from '@expo/vector-icons'
 import { Toast } from 'native-base'
+import styled from 'styled-components/native'
 import Header  from '../components/header'
 import * as Progress from 'react-native-progress'
+import colors from '../components/colors'
 
 @inject('feedbackStore','userStore')
 @observer
@@ -20,7 +21,7 @@ export default class FeedBack extends Component {
   @observable image = null
 
   static navigationOptions = {
-    header: null,
+    title: '反馈',
   }
   //native-base 依赖这个字体
   async componentDidMount() {
@@ -44,20 +45,12 @@ export default class FeedBack extends Component {
   submit = () => {
       let showText = ""
       if ( !this.content ){
-        Toast.show({
-                text: "请填写反馈内容" ,
-                position: 'bottom',
-                buttonText: 'Okay'
-        })
+        alert("请填写反馈内容")
         return
       }
 
       if (!this.image){
-        Toast.show({
-                text: "如果有图片将更好" ,
-                position: 'bottom',
-                buttonText: 'Okay'
-        })
+        alert("如果有图片将更好")
         return
       }
 
@@ -72,14 +65,6 @@ export default class FeedBack extends Component {
     const {navigation,feedbackStore} = this.props
     return (
       <Container>
-        <Header
-          navigation={navigation}
-          hasBack={true}
-          right={<SubmitButton onPress={() => this.submit() }>
-                    <Text style={{color:'#ffffff'}}> 发送 </Text>
-                  </SubmitButton>
-                }
-          />
           { feedbackStore.loading ? <Progress.Bar borderRadius={0} width={null}  progress={feedbackStore.progress}  /> : null  }
           <FeedbackInput
             editable={true}
@@ -97,10 +82,14 @@ export default class FeedBack extends Component {
 
         <View style={{flexDirection: 'row' ,height:100}}>
             <UploadImageButton onPress={() => this._openImagePicker()}>
-              <View>
-                  <Entypo name="camera" size={32}  />
-                  <Text>选择</Text>
-              </View>
+                { this.image ?  
+                  <Image source={{ uri: this.image.uri }} style={{ width: 100, height: 100 }} /> 
+                  :  
+                  <View>
+                    <Entypo name="camera" size={32}  />
+                    <Text>选择</Text>
+                  </View>
+                }
             </UploadImageButton>
             <AlignView style={{flex:1 }}>
                 <CustomTextInput
@@ -110,19 +99,20 @@ export default class FeedBack extends Component {
             </AlignView>
         </View>
         <View>
-          <Text> 提交反馈可以帮助APP开发者发现问题并解决问题，非常感谢您的反馈。
+          <Text>        提交反馈可以帮助APP开发者发现问题并解决问题，非常感谢您的反馈。
             如果您觉得这个反馈页面不能满足您要描述的内容，请发邮件到 yljckh@gmail.com 联系作者。</Text>
         </View>
+        <SubmitView>          
+          <SubmitButton onPress={() => this.submit() }>
+              <Text style={{fontSize:20,color:'white'}}> 发送 </Text>
+          </SubmitButton>
+        </SubmitView>
         <View>
-        { this.image ?   <Image source={{ uri: this.image.uri }} style={{ width: 100, height: 100 }} /> : null  }
+        
 
         </View>
         { feedbackStore.done ?
-              Toast.show({
-                text: "已成功提交反馈，感谢您！" ,
-                position: 'bottom',
-                buttonText: 'Okay'
-              }) : null }
+            alert("已成功提交反馈，感谢您！" ) : null }
       </Container>
     );
   }
@@ -163,8 +153,17 @@ const UploadImageButton = styled.TouchableHighlight`
   align-items: center;
   background-color:#cccccc;
 `
-const SubmitButton = styled.TouchableHighlight`
+const SubmitView = styled.View`
+  flex:1;
   justify-content: center;
   align-items: center;
-  flex:1;
+`
+
+const SubmitButton = styled.TouchableHighlight`
+  width:150;
+  height:40;
+  background-color:${colors.theme};
+  justify-content: center;
+  align-items: center;
+  border-radius:40;
 `

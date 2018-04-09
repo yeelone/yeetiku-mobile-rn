@@ -24,7 +24,6 @@ const tabNavigatorConfig  = {
       inactiveTintColor: '#d3d3d3',
       style: { backgroundColor: '#ffffff' },
   },
-
 }
 
 function getCurrentRouteName(navigationState) {
@@ -91,7 +90,8 @@ const MainNavigator =  StackNavigator({
   navigationOptions : {
     headerStyle:{ backgroundColor: color.theme},
     headerTitleStyle:{ color: 'white'},
-  }
+    headerTintColor: 'white',
+  },
 })
 
 

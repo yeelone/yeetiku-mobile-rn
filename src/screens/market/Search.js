@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import { View,Text,StyleSheet } from 'react-native'
-import { Button, Item, Input,Icon } from 'native-base'
+import { Button, Item, Input,Icon,Header } from 'native-base'
 import colors from '../../components/colors'
 export default class Search extends Component {
 
@@ -30,7 +30,7 @@ export default class Search extends Component {
                 onSubmitEdit={ () => this._handleSearch()}
                 />
             <Button transparent onPress={()=>this._handleSearch()}>
-                <Icon name='ios-search' style={{color:'#ffffff'}}/>
+                <Icon name='ios-search' style={{color:colors.theme}}/>
             </Button>
         </View>
     )
@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
         paddingLeft:20,
         paddingRight:20,
         flex:1,
-        flexDirection:'row'
+        flexDirection:'row',
+        backgroundColor:'#ffffff',
+        borderRadius:50,
+        
     },
     input :{
-        backgroundColor:'#ffffff',
-        borderRadius:30,
         height:30,
-        marginTop:10,
     }
 })

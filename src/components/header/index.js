@@ -45,7 +45,8 @@ export default function header({ navigation, title , style , hasBack, left,right
 //  border-width:2;
 //  border-radius:5;
 const Container = styled.View`
-  paddingTop:15;
+  padding-top:15;
+  margin-bottom:10;
   height:65 ;
   flex-direction: row;
   justify-content: space-between;

@@ -15,9 +15,6 @@ export default class ProfileInfo extends Component {
 
   static navigationOptions = {
     title: '编辑资料',
-    cardStyle: {
-      paddingTop: Platform.OS === 'ios' ? 0: StatusBar.currentHeight,
-    }
   }
 
   _avatarPicker = async () => {

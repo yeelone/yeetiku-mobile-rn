@@ -45,8 +45,8 @@ export default class ProfileNameEditor extends Component {
           onChangeText={(text) => this.text = text }
           value={this.text}/>
 
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end'}}>
-          <Button style={{backgroundColor:color.theme , margin:20}} onPress={() => this._handlePress() }>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+          <Button style={{backgroundColor:color.theme ,width:150,height:30, justifyContent: 'center',margin:20}} onPress={() => this._handlePress() }>
             { loading ? <Spinner color='green' />  : <Text style={{color:'white'}}> 保存 </Text> }
           </Button>
         </View>
