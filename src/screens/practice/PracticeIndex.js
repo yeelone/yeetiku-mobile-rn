@@ -55,7 +55,7 @@ export default class PracticeIndex extends Component {
     this.asyncInitialData()
   }
 
-  _keyExtractor = (item, index) =>  index
+  _keyExtractor = (item, index) =>  index.toString()
 
   render() {
     const {navigation, bankStore,userStore} = this.props

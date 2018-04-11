@@ -2,7 +2,7 @@
   "expo": {
     "name": "Yee Tiku || 忆题库 ",
     "slug": "yeetiku",
-    "sdkVersion": "25.0.0",
+    "sdkVersion": "26.0.0",
     "icon":"./icon.png",
     "privacy": "public"
   }
