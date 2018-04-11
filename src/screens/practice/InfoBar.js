@@ -3,10 +3,11 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,TouchableHighlight } from 'react-native'
+import { View,Text,TouchableHighlight,Platform } from 'react-native'
 import { LinearGradient } from 'expo'
 import { Container , Content,Button  } from 'native-base'
-import styled from 'styled-components/native'
+import Numeral from "numeral"
+import styled,{css} from 'styled-components/native'
 import color from '../../components/colors'
 
 @inject('bankStore')
@@ -26,19 +27,19 @@ export default class InfoBar extends Component {
             <BorderView>
               <Col >
                   <Cell style={{backgroundColor:"#3498db"}}>
-                      <BigText>{ records.total }</BigText>
+                      <BigText> {Numeral(records.total).format("0 a")}</BigText>
                   </Cell>
                   <Text>做过</Text>
               </Col>
               <Col>
                 <Cell onPress={() => this._openPractingView("wrong")} style={{backgroundColor:"#e74c3c"}}>
-                    <BigText>{ records.wrong }</BigText>
+                    <BigText> { Numeral(records.wrong).format("0 a") }</BigText>
                 </Cell>
                 <Text>错题</Text>
               </Col>
               <Col>
                 <Cell onPress={() => this._openPractingView("favorites")} style={{backgroundColor:"#f1c40f"}}>
-                    <BigText>{ records.favorites }</BigText>
+                    <BigText> { Numeral(records.favorites).format("0 a") }</BigText>
                 </Cell>
                 <Text>收藏</Text>
               </Col>
@@ -55,6 +56,7 @@ const Grid = styled.View`
   margin:10;
   border-radius:5;
   background-color:#34495e;
+  ${Platform.select({ios: css`shadow-color: black;shadow-opacity:0.1;shadow-radius: 20;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
 
 const BorderView = styled.View`

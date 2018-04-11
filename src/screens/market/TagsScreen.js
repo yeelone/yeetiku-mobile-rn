@@ -193,7 +193,7 @@ const Level2Button = styled.TouchableOpacity`
   border-left-color: #b2bec3;
   border-right-width: 10;
   border-right-color: #b2bec3;
-  ${Platform.select({ios: css`shadow-color: #666666;shadow-opacity: 0.8;shadow-radius: 5;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
+  ${Platform.select({ios: css`shadow-color: #666666;shadow-opacity: 0.4;shadow-radius: 10;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
 const TagItemList = styled.View`
   flex-direction:row;

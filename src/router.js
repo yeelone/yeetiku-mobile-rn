@@ -39,15 +39,6 @@ function getCurrentRouteName(navigationState) {
 }
 
 const AppNavigator = TabNavigator({
-  Practice: {
-    screen: PracticeIndex,
-    navigationOptions:{
-      tabBarIcon: ({ tintColor }) => (
-        <FontAwesome name="play" size={32} style={{color:tintColor}}/>
-      ),
-      title: '题库练习',
-    }
-  },
   TagsScreen:{
     screen: TagsScreen,
     navigationOptions:{
@@ -55,6 +46,15 @@ const AppNavigator = TabNavigator({
         <FontAwesome name="tags" size={32} style={{color:tintColor}} />
       ),
       title: '分类',
+    }
+  },
+  Practice: {
+    screen: PracticeIndex,
+    navigationOptions:{
+      tabBarIcon: ({ tintColor }) => (
+        <FontAwesome name="play" size={32} style={{color:tintColor}}/>
+      ),
+      title: '题库练习',
     }
   },
   ProfileScreen:{

@@ -24,32 +24,35 @@ export default class PracticeModal extends Component {
     const thumbnail = ConfigManager.getInstance().config.server + bank.image
     const record = getCurrentRecord(bank.id)
     return (
-            <Card style={{width:290}}>
-              <CardItem header style={{ justifyContent:'center' }}>
-                  <Info>{ bank.name }</Info>
-              </CardItem>
-              <CardItem style={{ justifyContent:'center' }}>
-                  <Thumbnail source={{uri:thumbnail}} />
-              </CardItem>
-              <CardItem style={{ justifyContent:'center' }}>
-                  <Text> { record.latest + 1 } / { bank.total } </Text>
-              </CardItem>
-              <CardItem style={{ justifyContent:'center' }}>
-                  <Text> 【 已做: { record.done } 】 【 错误: { record.wrong } 】 </Text>
-              </CardItem>
-              <CardItem style={{ justifyContent:'center' }}>
-                  <Button transparent onPress={() => this._handlePress() }>
-                      <Text>开始刷题</Text>
-                  </Button>
-              </CardItem>
-            </Card>
+        <Card style={{width:290}}>
+            <CardItem header style={{ justifyContent:'center' }}>
+                <Info>{ bank.name }</Info>
+            </CardItem>
+            <CardItem style={{ justifyContent:'center' }}>
+                <Thumbnail source={{uri:thumbnail}} />
+            </CardItem>
+            <CardItem style={{ justifyContent:'center' }}>
+                <Text>{ bank.description }</Text>
+            </CardItem>
+            <CardItem style={{ justifyContent:'center' }}>
+                <Text> { record.latest + 1 } / { bank.total } </Text>
+            </CardItem>
+            <CardItem style={{ justifyContent:'center' }}>
+                <Text> 【 已做: { record.done } 】 【 错误: { record.wrong } 】 </Text>
+            </CardItem>
+            <CardItem style={{ justifyContent:'center' }}>
+                <Button transparent onPress={() => this._handlePress() }>
+                    <Text>开始刷题</Text>
+                </Button>
+            </CardItem>
+        </Card>
     )
   }
 }
 
 const Thumbnail = styled.Image`
   height:100;
-  width:300;
+  width:290;
   background-color:green;
 `
 

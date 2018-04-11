@@ -48,8 +48,10 @@ export default class UserStore {
           this.token = res.token
           this.isLoginedIn = true
       }else if ( res.status === 600 ){
-        alert("连接不上服务器，请检查域值是否正确...")
+        this.isLoginedIn = false
+        alert("连接不上服务器，能连接上服务器吗？")
       }else if ( res.code === 10401 ){
+        this.isLoginedIn = false
         alert("用户名或密码错误，请重新输入...")
       }
       callback()

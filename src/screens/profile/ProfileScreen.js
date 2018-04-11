@@ -39,7 +39,7 @@ export default class ProfileScreen extends Component {
 
     return (
         <Container style={{backgroundColor:"#34495e"}}>
-          <Content style={{paddingTop:10}}>
+          <Content style={{paddingTop:20}}>
               <BorderView>
                 <Header {...headerProps}/>
               </BorderView>

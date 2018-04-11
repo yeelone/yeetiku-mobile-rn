@@ -5,6 +5,7 @@ import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { View,Text,FlatList,StyleSheet } from 'react-native'
 import { Container ,Content ,Header, Item, Input, Icon, Button } from 'native-base'
+import ParallaxScrollView from 'react-native-parallax-scroll-view'
 import Modal from 'react-native-modalbox'
 import PracticeModal from './PracticeModal'
 import InfoBar from './InfoBar'
@@ -21,8 +22,6 @@ export default class PracticeIndex extends Component {
       swipeToClose: true,
       sliderValue: 0.3
   }
-
-  @observable onEndReachedCalledDuringMomentum = true
 
   componentDidMount(){
     this.asyncInitialData()
@@ -64,37 +63,31 @@ export default class PracticeIndex extends Component {
     let total = 0
     if ( banksTotal !== -1 ) total = banksTotal
     return (
-      <Container style={{backgroundColor:"#ffffff"}}>
+      <Container style={{flex:1,backgroundColor:'#ecf0f1'}}>
           <TopHeader
             navigation={navigation}
             left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>练习</Text>}
             style={{ backgroundColor:colors.theme }}
             />
-            <InfoBar navigation={navigation}/>
-            <DesTextView>
-              <Text style={{color:'#cccccc'}}> {total}个题库 </Text>
-            </DesTextView>
-            <FlatList
-              data={bankStore.banks}
-              keyExtractor={this._keyExtractor}
-              renderItem={({item,index}) => <ThumbnailListItem  item={item}
-                                                          index={ index }
-                                                          key={item.key}
-                                                          onPress={this._handleItemPress}/>}
-              refreshing={bankStore.loading}
-              ItemSeparatorComponent={()=><View style={{height:2,borderBottomWidth:1,borderBottomColor:"#cccccc"}}></View>}
-              onRefresh={()=>this._onRefresh()}
-              onEndReachedThreshold={0.5}
-              onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false }}
-              onEndReached={({ distanceFromEnd }) => {
-                if (!this.onEndReachedCalledDuringMomentum) {
-                  bankStore.fetchByUser(userStore.id)
-                  this.onEndReachedCalledDuringMomentum = true
-                }
-
-               }}
-              style={{margin:10}}
-              />
+              <DesTextView>
+                <Text style={{color:'#cccccc'}}> {total}个题库 </Text>
+              </DesTextView>
+              <FlatList
+                data={bankStore.banks}
+                keyExtractor={this._keyExtractor}
+                renderItem={({item,index}) => <ThumbnailListItem  item={item}
+                                                            index={ index }
+                                                            key={item.key}
+                                                            onPress={this._handleItemPress}/>}
+                refreshing={bankStore.loading}
+                ListHeaderComponent={()=><InfoBar navigation={navigation}/>}
+                onRefresh={()=>this._onRefresh()}
+                onEndReachedThreshold={0.5}
+                onEndReached={({ distanceFromEnd }) => {
+                    bankStore.fetchByUser(userStore.id)
+                }}
+                style={{margin:10}}
+                />
 
           <Modal
               style={[styles.modal]}

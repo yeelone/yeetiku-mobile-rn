@@ -24,7 +24,7 @@ export default class MarketItemScreen extends Component {
     const { bankStore } = this.props
     const { bankMarket,currentMarketIndex,records } = bankStore
     const bank = bankMarket[currentMarketIndex]
-    const thumbnail = ConfigManager.getInstance().server + bank.image
+    const thumbnail = ConfigManager.getInstance().config.server + bank.image
     return (
             <Card>
               <CardItem header style={{ justifyContent:'center' }}>
@@ -37,7 +37,9 @@ export default class MarketItemScreen extends Component {
               <CardItem style={{ justifyContent:'center' }}>
                   <Info>{ bank.total }道题</Info>
               </CardItem>
-
+              <CardItem style={{ justifyContent:'center' }}>
+                  <Info>{ bank.description }道题</Info>
+              </CardItem>
               <CardItem style={{ justifyContent:'center' }}>
                   <Button transparent onPress={() => this._handleItemPress()}>
                       <Text style={{fontSize:24}}>开始刷题</Text>

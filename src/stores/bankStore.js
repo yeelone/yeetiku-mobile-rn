@@ -6,7 +6,7 @@ import { queryRecords } from '../services/users'
 
 export default class BanksStore {
   @observable id: number = 0
-  @observable banks = observable.array([])               //当前正在参加的题库
+  @observable banks = observable.array([])              //当前正在参加的题库
   @observable banksTotal = -1
   @observable bankMarket = observable.array([])            //所有题库
   @observable bankMarketTotal = -1
@@ -17,7 +17,7 @@ export default class BanksStore {
   @observable allTags = {}
   @observable userPage: number = 1
   @observable marketPage: number = 1
-  @observable pageSize: number = 6
+  @observable pageSize: number = 10
   @observable loading = false
 
   @action get = () => {
@@ -62,7 +62,11 @@ export default class BanksStore {
 
   @action fetchByTag = (key) => {
     key = key || this.currentTag
-
+    console.log("here is tag store")
+    if ( this.bankMarket.length === this.bankMarketTotal || this.loading ) {
+      return
+    }
+    
     this.loading = true
     return queryByTag({tag:key, page:this.marketPage, pageSize:this.pageSize  }).then(action( (res)=>{
       if ( res.success && res.code === 10200  ) {
@@ -98,6 +102,7 @@ export default class BanksStore {
       if ( res.success && res.code === 10200  ) {
         this.banks = this.banks.concat([...res.body.banks])
         this.banksTotal = res.body.total
+        this.userPage += 1
       }else{
         this.banksTotal = 0
       }

@@ -18,16 +18,10 @@ export default class Market extends Component {
     title: '商店',
   }
 
-  @observable onEndReachedCalledDuringMomentum = true
-
   constructor(){
     super()
     this.searchValue = ""
   }
-  //
-  // componentWillMount(){
-  //   this.props.bankStore.fetchAll()
-  // }
 
   _handleItemPress =  (item,index) => {
     const {navigation,bankStore} = this.props
@@ -100,13 +94,11 @@ export default class Market extends Component {
                 refreshing={bankStore.loading}
                 onRefresh={()=>this._getBanks()}
                 onEndReachedThreshold={0.5}
-                onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false }}
                 onEndReached={({ distanceFromEnd }) => {
-                   if (!this.onEndReachedCalledDuringMomentum) {
-                     this._getBanks()
-                     this.onEndReachedCalledDuringMomentum = true
-                   }
-
+                  //如果列表的数据量少于pagesize的话，表示服务器只有这么少量的几个数据，后续不需要再发送太多的请求
+                    if ( bankStore.bankMarket.length >= bankStore.pageSize ) {
+                      this._getBanks()
+                    }
                  }}
                 style={{margin:10}}
                 />
