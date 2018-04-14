@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,Image,StyleSheet,Platform,StatusBar } from 'react-native'
+import { View,Text,Image,StyleSheet } from 'react-native'
 import { Container, Content, List, ListItem, Icon,Thumbnail, Left, Body, Right, Switch,Toast } from 'native-base'
 import { EvilIcons } from '@expo/vector-icons'
 import { ImagePicker } from 'expo'
@@ -53,12 +53,12 @@ export default class ProfileInfo extends Component {
       <View style={{flex:1}}> 
           { loading ? <Progress.Bar borderRadius={0} width={null}  progress={progress}  /> : null  }
         <Content>
-          <List style={{backgroundColor:'red'}}>
-            <ListItem icon itemDivider onPress={() => this._avatarPicker() }>
+          <List >
+            <ListItem  icon itemDivider onPress={() => this._avatarPicker() }>
               <Body>
                 <Text>头像</Text>
               </Body>
-              <Right>
+              <Right style={{marginTop:-10}}>
                { user.avatar ? <Thumbnail small source={{uri: userStore.getAvatar() }} /> : <EvilIcons name="user" style={[styles.icon]}/> }
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
@@ -67,7 +67,7 @@ export default class ProfileInfo extends Component {
               <Body>
                 <Text>姓名</Text>
               </Body>
-              <Right>
+              <Right style={{marginTop:-10}}>
                 <Text>{user.name}</Text>
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
@@ -76,7 +76,7 @@ export default class ProfileInfo extends Component {
               <Body>
                 <Text>座右铭</Text>
               </Body>
-              <Right>
+              <Right style={{marginTop:-10}}>
                 <Text>{user.nickname}</Text>
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
@@ -85,7 +85,7 @@ export default class ProfileInfo extends Component {
               <Body>
                 <Text>性别</Text>
               </Body>
-              <Right>
+              <Right style={{marginTop:-10}}>
                 <Text>{user.sex}</Text>
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
@@ -94,7 +94,7 @@ export default class ProfileInfo extends Component {
               <Body>
                 <Text>修改密码</Text>
               </Body>
-              <Right>
+              <Right style={{marginTop:-10}}>
                 <EvilIcons style={[styles.icon]} name="chevron-right" />
               </Right>
             </ListItem>

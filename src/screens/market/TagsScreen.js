@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,FlatList,TouchableOpacity,Dimensions,ScrollView,Platform,StyleSheet } from 'react-native'
+import { View,Text,FlatList,TouchableOpacity,Dimensions,ScrollView,Platform,StyleSheet,StatusBar } from 'react-native'
 import { Container,Content,Spinner,Button, Item, Input,Icon,Header } from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 import Search from './Search'
@@ -126,7 +126,7 @@ export default class TagsScreen extends Component {
     }
     return (
         <Container>
-          <Header searchBar rounded style={{paddingTop:25,paddingBottom:10,backgroundColor:colors.theme }}>
+          <Header searchBar rounded style={[styles.headerBar]}>
             <Search onSearch={(value)=>this._handleSearch(value)} />
           </Header> 
             { loading ? <Spinner color='green' /> : null}
@@ -156,7 +156,6 @@ const LeftPane = styled.View`
   width:80;
   border-right-width:1;
   border-right-color:#cccccc;
-
 `
 
 const RightPane = styled.View`
@@ -185,6 +184,8 @@ const Level1Button = styled.TouchableOpacity`
 const Level2Button = styled.TouchableOpacity`
   padding:3;
   background-color:#dfe6e9;
+  margin-bottom:5;
+  margin-top:5;
   border-color: transparent;
   border-top-width: 7;
   border-top-color: transparent;
@@ -193,7 +194,7 @@ const Level2Button = styled.TouchableOpacity`
   border-left-color: #b2bec3;
   border-right-width: 10;
   border-right-color: #b2bec3;
-  ${Platform.select({ios: css`shadow-color: #666666;shadow-opacity: 0.4;shadow-radius: 10;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
+  ${Platform.select({ios: css`shadow-color: black;shadow-opacity: 0.4;shadow-radius: 10;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
 const TagItemList = styled.View`
   flex-direction:row;
@@ -221,4 +222,10 @@ const styles = StyleSheet.create({
     margin:5,
     backgroundColor:"#dfe6e9"
   },
+  headerBar:{
+    paddingTop:Platform.OS === 'ios' ? 25 : StatusBar.currentHeight + 3  ,
+    paddingBottom:10,
+    height:60,
+    backgroundColor:colors.theme,
+  }
 });

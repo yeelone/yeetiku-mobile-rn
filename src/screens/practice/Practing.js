@@ -327,16 +327,16 @@ export default class Practing extends Component {
           </CardView>
             
         </Content>
-        <Footer>
-          <FooterTab style={{backgroundColor:"#ecf0f1"}}>
-              <Button iconLeft light onPress={ () => this._handlePrev()  } >
+        <Footer style={{backgroundColor:"#34495e"}}>
+          <FooterTab style={{backgroundColor:"#34495e"}}>
+              <Button iconLeft style={{backgroundColor:"#34495e"}} onPress={ () => this._handlePrev()  } >
                    <Icon name='arrow-back' />
                    <Text>上一题</Text>
               </Button>
               <Button transparent primary iconLeft onPress={ () =>{this.showModal = true }}>
                  <Text> { getCurrentIndex() + 1 } /  { total }</Text>
               </Button>
-              <Button iconRight light onPress={ () => this._handleNext()  }>
+              <Button iconRight style={{backgroundColor:"#34495e"}}  onPress={ () => this._handleNext()  }>
                    <Text>下一题</Text>
                    <Icon name='arrow-forward' />
                </Button>
@@ -366,7 +366,7 @@ const ActionView = styled.View`
     align-items: center;
     margin:20;
     border-radius:10;
-    height:50 ;
+    height:60 ;
 `
 
 const CardViewHeader = styled.View`
@@ -401,7 +401,6 @@ const styles = StyleSheet.create({
     },
     content:{
       borderRadius:10,
-      
     },
     centering:{
       alignItems:'center',

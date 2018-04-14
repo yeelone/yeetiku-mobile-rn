@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { StatusBar,Platform } from 'react-native'
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 import { FontAwesome } from '@expo/vector-icons'
 import { MarketScreen, MarketItemScreen,TagsScreen  }from './screens/market'
@@ -22,7 +21,7 @@ const tabNavigatorConfig  = {
   tabBarOptions: {
       activeTintColor: color.theme,
       inactiveTintColor: '#d3d3d3',
-      style: { backgroundColor: '#ffffff' },
+      style: { backgroundColor: '#34495e' },
   },
 }
 

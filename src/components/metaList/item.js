@@ -15,8 +15,8 @@ export default function listItem({ index,item,onPress }) {
   }
 
   return (
-    <Container onPress={() => onPress(item,index)}>
-      <CustomCard>
+    <Container >
+      <CustomCard onPress={() => onPress(item,index)}>
           <BorderView>
             <LeftPane>
               <View>
@@ -38,20 +38,19 @@ export default function listItem({ index,item,onPress }) {
   )
 }
 
-const Container = styled.TouchableOpacity`
+const Container = styled.View`
   margin:10;
-  ${Platform.select({ios: css`shadow-color: black;shadow-opacity:0.1;shadow-radius: 20;shadow-offset: { height:0, width: 0};`,android: css`elevation:10`})};
+  ${Platform.select({ios: css`shadow-color: black;shadow-opacity:0.1;shadow-radius: 20;shadow-offset: { height:0, width: 0};`,android: css`elevation:1`})};
 `
 
-const CustomCard = styled.View`
+const CustomCard = styled.TouchableOpacity`
   background-color:#f5f5f5;
-  border-radius:10;
   padding:5;
   
 `
 
 const BorderView = styled.View`
-  flex-direction: row;
+  flex-direction:row;
   border-width:2;
   border-radius:5;
   border-style:dashed;

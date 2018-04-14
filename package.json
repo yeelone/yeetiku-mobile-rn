@@ -50,12 +50,10 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz",
     "react-native-easy-comments": "^1.0.11",
     "react-native-modalbox": "^1.3.9",
-    "react-native-parallax-scroll-view": "^0.21.0",
     "react-native-progress": "^3.3.0",
     "react-native-radio-buttons": "1.0.0",
     "react-native-storage": "^0.2.2",
     "react-native-svg": "^5.5.1",
-    "react-native-view-more-text": "^1.4.3",
     "react-navigation": "^1.5.11",
     "styled-components": "^1.4.6"
   }

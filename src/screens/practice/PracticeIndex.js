@@ -63,7 +63,7 @@ export default class PracticeIndex extends Component {
     let total = 0
     if ( banksTotal !== -1 ) total = banksTotal
     return (
-      <Container style={{flex:1,backgroundColor:'#ecf0f1'}}>
+      <Container style={{flex:1,backgroundColor:'#dfe4ea'}}>
           <TopHeader
             navigation={navigation}
             left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>练习</Text>}

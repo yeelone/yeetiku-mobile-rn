@@ -16,6 +16,7 @@ import TopHeader  from '../../components/header'
 export default class ProfileScreen extends Component {
   static navigationOptions = {
     title: '帐号',
+    backgroundColor:"#34495e",
   }
 
   navTo = (route) => {

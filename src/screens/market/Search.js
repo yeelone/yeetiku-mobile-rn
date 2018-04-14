@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         backgroundColor:'#ffffff',
         borderRadius:50,
-        
+        height:30,
     },
     input :{
-        height:30,
+        height:25,
     }
 })

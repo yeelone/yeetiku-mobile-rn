@@ -62,7 +62,6 @@ const Grid = styled.View`
 const BorderView = styled.View`
   flex-direction: row;
   border-width:2;
-  border-radius:5;
   padding:10;
   border-style:dashed;
   border-color: #2c3e50;
@@ -81,6 +80,7 @@ const Cell = styled.TouchableHighlight `
   background-color:#2980b9 ;
   width:80;
   height:80;
+  margin-bottom:5;
   border-width:2;
   border-style:dotted;
   border-color: #34495e;
