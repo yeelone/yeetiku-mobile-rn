@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react'
 import { LinearGradient } from 'expo'
 import { NavigationActions } from 'react-navigation'
 import styled from 'styled-components/native'
-import { injectStore,injectNavigation } from '../utils/request'
+import { registerErrorCallback,registerSuccessCallback } from '../utils/request'
 import { ConfigManager,setHttpBaseUrl } from '../utils'
 @inject('userStore')
 @observer
@@ -16,10 +16,16 @@ export default class Splash extends Component {
   }
 
   async componentDidMount(){
-    // injectStore 和  injectNavigation 是为了将userStore和 navigation 注入到request中，以方便在接受到网络请求的时候做出相应的处理
-    // 目前的api还不太友好，赶时间就先这样过了
-    injectStore(this.props.userStore)
-    injectNavigation(this.props.navigation)
+    
+    registerErrorCallback((status)=>{
+      console.log(status);
+      
+      if ( status.status === 401 ) {
+        userStore.logout()
+        this.navTo('MainNavigator')
+      }
+    })
+
     const config = ConfigManager.getInstance()
     await config.getConfig()
     this.props.userStore.setDomain(config.config.domain)

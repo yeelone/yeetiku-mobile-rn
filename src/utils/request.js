@@ -16,8 +16,8 @@ let http = axios.create({
   }
 })
 
-let userManagerStore = null
-let router = null
+let errorCallbackList = null
+let successCallbackList = null
 
 function setHttpToken() {
   return getToken().then((token)=>{
@@ -63,18 +63,16 @@ const fetch = (options) => {
   }
 }
 
-export function injectStore(userStore){
-  userManagerStore = userStore
+//registerErrorCallback : 当请求失失败时，调用错误回调
+export function registerErrorCallback(callback){
+  errorCallbackList = callback
 }
 
-export function injectNavigation(navigation){
-  router = navigation
+//registerSuccessCallback : 当请求失成功时，调用成功回调
+export function registerSuccessCallback(callback){
+  successCallbackList = callback
 }
 
-let handlerCallback = () => {}
-export function registerHelper(callback) {
-  handlerCallback = callback
-}
 
 export function setHttpBaseUrl(domain,apiPrefix){
     http.defaults.baseURL = "http://" + domain + apiPrefix
@@ -90,36 +88,36 @@ export async function request (options) {
   return fetch(options).then((response) => {
     const { message, code } = response.data
     let data = response.data
-
+    let status = null 
     if ( code > 10400 ){
-       return  { success: false, status:code, message }
+       status = { success: false, status:code, message }
     }else {
-      return {
+      status = {
         success: true,
         message,
         status:code,
         ...data,
       }
     }
+    
+    successCallbackList(status)
+
+    return status 
 
   }).catch((error) => {
     const { response } = error
     let message
-    let status
+    let returnStatus = null 
     if (response) {
-      status = response.status
-      const { data, statusText } = response
+      const { status, data, statusText } = response
       message = data.message || statusText
+      returnStatus = { success: false,status , message }
     } else {
-      status = 600
-      message = 'Network Error'
+      returnStatus = { success: false, status:600 , message :'Network Error'}
     }
+    
+    errorCallbackList(returnStatus)
 
-    if ( status === 401 && router && userManagerStore ) {
-      userManagerStore.logout()
-      router.navigate("MainNavigator")
-    }
-
-    return { success: false, status, message }
+    return returnStatus
   })
 }
