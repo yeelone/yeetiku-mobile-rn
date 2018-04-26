@@ -16,8 +16,8 @@ let http = axios.create({
   }
 })
 
-let errorCallbackList = null
-let successCallbackList = null
+let errorCallback = () =>{}
+let successCallback = () =>{}
 
 function setHttpToken() {
   return getToken().then((token)=>{
@@ -65,12 +65,12 @@ const fetch = (options) => {
 
 //registerErrorCallback : 当请求失失败时，调用错误回调
 export function registerErrorCallback(callback){
-  errorCallbackList = callback
+  errorCallback = callback
 }
 
 //registerSuccessCallback : 当请求失成功时，调用成功回调
 export function registerSuccessCallback(callback){
-  successCallbackList = callback
+  successCallback = callback
 }
 
 
@@ -100,11 +100,13 @@ export async function request (options) {
       }
     }
     
-    successCallbackList(status)
+    successCallback(status)
 
     return status 
 
   }).catch((error) => {
+    console.log("error", error);
+    
     const { response } = error
     let message
     let returnStatus = null 
@@ -116,7 +118,7 @@ export async function request (options) {
       returnStatus = { success: false, status:600 , message :'Network Error'}
     }
     
-    errorCallbackList(returnStatus)
+    errorCallback(returnStatus)
 
     return returnStatus
   })

@@ -78,8 +78,8 @@ const Cell = styled.TouchableHighlight `
   align-items: center;
   border-radius:50;
   background-color:#2980b9 ;
-  width:80;
-  height:80;
+  width:60;
+  height:60;
   margin-bottom:5;
   border-width:2;
   border-style:dotted;

@@ -2,8 +2,11 @@
   "expo": {
     "name": "Yee Tiku || 忆题库 ",
     "slug": "yeetiku",
-    "sdkVersion": "26.0.0",
+    "sdkVersion": "27.0.0",
     "icon":"./icon.png",
-    "privacy": "public"
+    "privacy": "public",
+    "android": {
+      "package": "com.elone.yeetiku"
+    }
   }
 }

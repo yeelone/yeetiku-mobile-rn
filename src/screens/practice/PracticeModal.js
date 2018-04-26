@@ -4,11 +4,11 @@ import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer ,inject } from 'mobx-react'
 import styled from 'styled-components/native'
-import { Text } from 'react-native'
+import { Text,TouchableOpacity } from 'react-native'
 import { Button ,Card, CardItem, Icon} from 'native-base'
 import { ConfigManager } from '../../utils'
 import { Ionicons } from '@expo/vector-icons'
-import color from '../../components/colors'
+import colors from '../../components/colors'
 
 @inject('bankStore','questionStore','userStore')
 @observer
@@ -41,8 +41,8 @@ export default class PracticeModal extends Component {
                 <Text> 【 已做: { record.done } 】 【 错误: { record.wrong } 】 </Text>
             </CardItem>
             <CardItem style={{ justifyContent:'center' }}>
-                <Button transparent onPress={() => this._handlePress() }>
-                    <Text>开始刷题</Text>
+                <Button style={{backgroundColor:colors.theme ,width:150,height:30, justifyContent: 'center',margin:20}} onPress={() => this._handlePress() }>
+                    <Text style={{color:'white'}}>开始刷题</Text>
                 </Button>
             </CardItem>
         </Card>
@@ -60,4 +60,9 @@ const Info = styled.Text`
   font-size:20;
   justify-content: space-between;
   align-items: center;
+`
+
+const StartBtn = styled.TouchableOpacity`
+  background-color:#f5f5f5;
+  padding:5;
 `

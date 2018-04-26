@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react'
 import { TextInput } from 'react-native'
 import { observer } from 'mobx-react'
 import { observable  } from 'mobx'
@@ -14,7 +14,7 @@ const FormInput = styled.TextInput`
 
 @observer
 export default class InputField extends Component {
-  @observable name: string = ''
+  @observable name = ''
 
   onChange = (event) =>  {
     this.props.onChange( this.name, event.nativeEvent.text)

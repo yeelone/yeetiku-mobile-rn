@@ -16,7 +16,7 @@ import ThumbnailListItem from '../../components/metaList/item'
 
 @inject('bankStore','questionStore','userStore')
 @observer
-export default class PracticeIndex extends Component {
+export default class PracticeItemList extends Component {
   @observable modalState = {
       isOpen: true,
       isDisabled: false,

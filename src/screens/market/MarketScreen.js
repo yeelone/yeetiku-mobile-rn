@@ -30,7 +30,7 @@ export default class Market extends Component {
     navigation.navigate("MarketItemScreen")
   }
 
-  _keyExtractor = (item, index) =>  index
+  _keyExtractor = (item, index) => index.toString()
 
   _getBanks = () => {
     const {navigation,bankStore} = this.props

@@ -5,13 +5,13 @@ import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 import { View,Text,FlatList,StyleSheet } from 'react-native'
 import { Container ,Content ,Header, Item, Input, Icon, Button } from 'native-base'
-import ParallaxScrollView from 'react-native-parallax-scroll-view'
 import Modal from 'react-native-modalbox'
 import PracticeModal from './PracticeModal'
 import InfoBar from './InfoBar'
 import styled from 'styled-components/native'
 import TopHeader  from '../../components/header'
 import ThumbnailListItem from '../../components/metaList/item'
+
 import colors from '../../components/colors'
 @inject('bankStore','questionStore','userStore')
 @observer
@@ -55,23 +55,31 @@ export default class PracticeIndex extends Component {
     this.asyncInitialData()
   }
 
+  _renderHeaderComponent = (navigation,total) => {
+    return (
+      <View>
+        <InfoBar navigation={navigation}/>
+        <DesTextView>
+          <Text style={{color:'#cccccc'}}> {total}个题库 </Text>
+        </DesTextView>
+      </View>
+    )
+  }
   _keyExtractor = (item, index) =>  index.toString()
 
   render() {
-    const {navigation, bankStore,userStore} = this.props
+    const { navigation, bankStore,userStore } = this.props
     const { banksTotal } = bankStore
     let total = 0
     if ( banksTotal !== -1 ) total = banksTotal
+
     return (
-      <Container style={{flex:1,backgroundColor:'#dfe4ea'}}>
+      <Container style={{flex:1,}}>
           <TopHeader
             navigation={navigation}
             left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>练习</Text>}
             style={{ backgroundColor:colors.theme }}
             />
-              <DesTextView>
-                <Text style={{color:'#cccccc'}}> {total}个题库 </Text>
-              </DesTextView>
               <FlatList
                 data={bankStore.banks}
                 keyExtractor={this._keyExtractor}
@@ -80,7 +88,7 @@ export default class PracticeIndex extends Component {
                                                             key={item.key}
                                                             onPress={this._handleItemPress}/>}
                 refreshing={bankStore.loading}
-                ListHeaderComponent={()=><InfoBar navigation={navigation}/>}
+                ListHeaderComponent={this._renderHeaderComponent(navigation,total)}
                 onRefresh={()=>this._onRefresh()}
                 onEndReachedThreshold={0.5}
                 onEndReached={({ distanceFromEnd }) => {

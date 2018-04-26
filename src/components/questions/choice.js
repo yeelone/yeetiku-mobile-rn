@@ -6,14 +6,14 @@ import { observable } from 'mobx'
 import { observer } from 'mobx-react'
 import styled from 'styled-components/native'
 import { Entypo } from '@expo/vector-icons'
-import color from '../colors'
+import colors from '../colors'
 import { View,TouchableOpacity,Text,Dimensions } from 'react-native'
 import { RadioButtons } from 'react-native-radio-buttons'
 
 @observer
 export default class Choice extends Component {
   @observable selectedOption = {}
-  @observable selectedStyle = { fontWeight: 'bold',color:'#ffffff', backgroundColor:color.rightColor}
+  @observable selectedStyle = { fontWeight: 'bold',color:'#ffffff', backgroundColor:colors.rightColor}
   componentDidMount(){
     const { question, initial } = this.props
     const { options } = question
@@ -30,10 +30,10 @@ export default class Choice extends Component {
   _checkAnswers = (option) => {
     let result = false  //答题情况
     if ( option.is_correct ) {
-      this.selectedStyle =  { fontWeight: 'bold',color:'#ffffff', backgroundColor:color.rightColor}
+      this.selectedStyle =  { fontWeight: 'bold',color:'#ffffff', backgroundColor:colors.rightColor}
       result = true
     }else {
-      this.selectedStyle = { fontWeight: 'bold',color:'#ffffff', backgroundColor:color.wrongColor}
+      this.selectedStyle = { fontWeight: 'bold',color:'#ffffff', backgroundColor:colors.wrongColor}
       result = false
     }
 
@@ -75,17 +75,17 @@ export default class Choice extends Component {
       return item
     })
 
-      return (
-        <View>
-                  <RadioButtons
-                    options={ options }
-                    onSelection={ (selectedOption) => this.setSelectedOption(selectedOption) }
-                    selectedOption={ this.selectedOption }
-                    renderOption={ (option, selected, onSelect, index) => this.renderOption(option, selected, onSelect, index) }
-                    renderContainer={ (optionNodes) => this.renderContainer(optionNodes) }
-                  />
-        </View>
-      )
+    return (
+      <View>
+        <RadioButtons
+          options={ options }
+          onSelection={ (selectedOption) => this.setSelectedOption(selectedOption) }
+          selectedOption={ this.selectedOption }
+          renderOption={ (option, selected, onSelect, index) => this.renderOption(option, selected, onSelect, index) }
+          renderContainer={ (optionNodes) => this.renderContainer(optionNodes) }
+        />
+      </View>
+    )
   }
 }
 

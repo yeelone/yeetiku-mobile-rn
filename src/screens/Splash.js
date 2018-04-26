@@ -18,8 +18,6 @@ export default class Splash extends Component {
   async componentDidMount(){
     
     registerErrorCallback((status)=>{
-      console.log(status);
-      
       if ( status.status === 401 ) {
         userStore.logout()
         this.navTo('MainNavigator')

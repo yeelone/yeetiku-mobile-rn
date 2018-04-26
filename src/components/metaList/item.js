@@ -39,14 +39,13 @@ export default function listItem({ index,item,onPress }) {
 }
 
 const Container = styled.View`
-  margin:10;
+  margin:5;
   ${Platform.select({ios: css`shadow-color: black;shadow-opacity:0.1;shadow-radius: 20;shadow-offset: { height:0, width: 0};`,android: css`elevation:1`})};
 `
 
 const CustomCard = styled.TouchableOpacity`
   background-color:#f5f5f5;
   padding:5;
-  
 `
 
 const BorderView = styled.View`

@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react'
 import { View,Text,TextInput } from 'react-native'
 import { Button,Spinner  } from 'native-base'
 import styled from 'styled-components/native'
-import color from '../../components/colors'
+import colors from '../../components/colors'
 
 @inject('userStore')
 @observer
@@ -46,7 +46,7 @@ export default class ProfileNameEditor extends Component {
           value={this.text}/>
 
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-          <Button style={{backgroundColor:color.theme ,width:150,height:30, justifyContent: 'center',margin:20}} onPress={() => this._handlePress() }>
+          <Button style={{backgroundColor:colors.theme ,width:150,height:30, justifyContent: 'center',margin:20}} onPress={() => this._handlePress() }>
             { loading ? <Spinner color='green' />  : <Text style={{color:'white'}}> 保存 </Text> }
           </Button>
         </View>

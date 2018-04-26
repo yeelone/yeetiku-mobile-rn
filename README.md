@@ -49,3 +49,8 @@ root@DESKTOP-SRNKU4B:/mnt/g/yeetiku/server-go# ./server-go_linux_amd64 --port 80
 author: elone
 
 email: yljckh@gmail.com
+
+
+-------
+      长期寻求一份远程开发工作，
+-------
