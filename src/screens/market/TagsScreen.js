@@ -174,8 +174,8 @@ const BottomPane = styled.View`
 `
 const Level1Button = styled.TouchableOpacity`
   justify-content:center;
-  margin-left:10;
-  padding-left:10;
+  margin-left:2;
+  padding-left:2;
   width:100;
   height:40;
   border-bottom-width:1;

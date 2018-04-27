@@ -41,6 +41,9 @@ export default class PracticeModal extends Component {
                 <Text> 【 已做: { record.done } 】 【 错误: { record.wrong } 】 </Text>
             </CardItem>
             <CardItem style={{ justifyContent:'center' }}>
+                <Text>【 正解率: { Math.round((record.done - record.wrong) / bank.total *100) + '%' } 】 </Text>
+            </CardItem>
+            <CardItem style={{ justifyContent:'center' }}>
                 <Button style={{backgroundColor:colors.theme ,width:150,height:30, justifyContent: 'center',margin:20}} onPress={() => this._handlePress() }>
                     <Text style={{color:'white'}}>开始刷题</Text>
                 </Button>

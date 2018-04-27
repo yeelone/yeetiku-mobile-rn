@@ -1,5 +1,5 @@
 
-![image](https://wx4.sinaimg.cn/mw1024/6547935dgy1flmlznndy4j202y03cq2s.jpg)
+![image](https://wx2.sinaimg.cn/mw690/6547935dgy1fqrl8u1c5qj209s09sq5h.jpg)
 
 # [忆题库 YeeTiku](http://yeetiku.com/) - 可定制的题库平台
 
@@ -17,9 +17,11 @@ https://expo.io/@yeelone/yeetiku
 
 
 APP截图：
-![image](https://wx4.sinaimg.cn/mw690/6547935dgy1flmmcbufv8j20fq0drwfg.jpg)
+![image](https://wx1.sinaimg.cn/mw690/6547935dgy1fqrl54qepwj20ay0jpjv1.jpg)
 
-![image](https://wx1.sinaimg.cn/mw1024/6547935dgy1flmmcbu30ij20fi0dk0tu.jpg)
+![image](https://wx2.sinaimg.cn/mw690/6547935dgy1fqrl54og7mj20b10jtn05.jpg)
+![image](https://wx1.sinaimg.cn/mw690/6547935dgy1fqrl54me3vj20ax0jsq5q.jpg)
+![image](https://wx1.sinaimg.cn/mw690/6547935dgy1fqrl54kb3yj20az0jpabv.jpg)
 
 #### Basic usage
 
@@ -50,7 +52,8 @@ author: elone
 
 email: yljckh@gmail.com
 
+wechat : j_vanni 
 
 -------
-      长期寻求一份远程开发工作，
+      长期寻求一份远程开发工作.
 -------
