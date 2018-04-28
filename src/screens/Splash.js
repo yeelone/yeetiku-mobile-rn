@@ -46,7 +46,7 @@ export default class Splash extends Component {
           style={{flex:1}}
           >
             <LogoContainer>
-              <LogoImage source={require('../images/logo.png')} />
+              <LogoImage source={require('../images/icon.png')} />
             </LogoContainer>
       </LinearGradient>
 

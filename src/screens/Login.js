@@ -95,11 +95,11 @@ export default class Login extends Component {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <LinearGradient
-            colors={['#8ef378', '#1cbbb4']}
+            colors={[ '#1cbbb4','#8ef378']}
             style={{flex:1}}
             >
               <LogoContainer>
-                <Logo source={require('../images/logo.png')} />
+                <Logo source={require('../images/icon.png')} />
               </LogoContainer>
 
               {this.checking ?

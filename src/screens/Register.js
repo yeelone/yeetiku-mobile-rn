@@ -32,7 +32,7 @@ export default class Register extends Component {
             style={{flex:1}}
             >
               <LogoContainer>
-                <LogoImage source={require('../images/logo.png')} />
+                <LogoImage source={require('../images/icon.png')} />
               </LogoContainer>
 
               <FormContainer>
