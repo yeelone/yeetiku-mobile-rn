@@ -32,14 +32,22 @@ export default class FeedBack extends Component {
   }
 
   _openImagePicker =  async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: false,
-      aspect: [4, 3],
-    });
-
-    if (!result.cancelled) {
-      this.image = result
+    const {  Permissions } = Expo
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    if (status === 'granted') {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: false,
+        aspect: [4, 3],
+      });
+  
+      if (!result.cancelled) {
+        this.image = result
+      }
+    } else {
+      throw new Error('Camera permission not granted')
     }
+
+    
   }
 
   submit = () => {

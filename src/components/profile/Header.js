@@ -1,14 +1,16 @@
 /* @flow */
 import React from 'react'
-import { View } from 'react-native'
+import { View,StyleSheet} from 'react-native'
 import { Thumbnail } from 'native-base'
+import {Image} from "react-native-expo-image-cache"
 import styled from 'styled-components/native'
-function header ({ name,domain, backgroundImage, avatar , nickname  }) {
-  const logo = require('../../images/logowhite.png')
+
+export default function header ({ name,domain, backgroundImage, avatar , nickname  }) {
+  const logo = require('../../images/icon.png')
   name = name || 'welcome'
   domain = domain || 'yeetiku'
   backgroundImage = backgroundImage || logo
-  avatar = <ProfileImage source={{uri:avatar}} />  || <ProfileImage source={require('../../images/me.jpg')} />
+  avatar = <Image style={styles.avatar} {...{uri:avatar}} /> ||  <ProfileImage source={require('../../images/me.jpg')} />
   nickname = nickname || 'edit your motto'
   return (
        <Container>
@@ -29,8 +31,6 @@ function header ({ name,domain, backgroundImage, avatar , nickname  }) {
        </Container>
   )
 }
-
-
 
 const Container = styled.View`
   justify-content:center;
@@ -90,5 +90,17 @@ const FooterText = styled.Text`
   font-size:10;
   color:#ecf0f1;
 `
+const styles = StyleSheet.create({
 
-export default header
+  avatar: {
+    width:120,
+    height:120,
+    borderRadius:60,
+    alignSelf:'center',
+    marginTop:10,
+  },
+
+})
+
+
+

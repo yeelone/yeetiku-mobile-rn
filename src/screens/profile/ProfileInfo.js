@@ -18,14 +18,21 @@ export default class ProfileInfo extends Component {
   }
 
   _avatarPicker = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: false,
-      aspect: [4, 3],
-    })
-
-    if (!result.cancelled) {
-      this.props.userStore.saveAvatar(this.props.userStore.id,result.uri)
+    const {  Permissions } = Expo
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    if (status === 'granted') {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        allowsEditing: false,
+        aspect: [4, 3],
+      })
+  
+      if (!result.cancelled) {
+        this.props.userStore.saveAvatar(this.props.userStore.id,result.uri)
+      }
+    } else {
+      throw new Error('Camera permission not granted')
     }
+    
   }
 
   _changeField = (field) => {

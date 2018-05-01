@@ -3,8 +3,8 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,FlatList,StyleSheet } from 'react-native'
-import { Container ,Content ,Header, Item, Input, Icon, Button } from 'native-base'
+import { View,Text,FlatList,StyleSheet,Dimensions } from 'react-native'
+import { Container ,CardItem,Content ,Header, Item, Input, Icon, Button } from 'native-base'
 import Modal from 'react-native-modalbox'
 import PracticeModal from './PracticeModal'
 import InfoBar from './InfoBar'
@@ -100,11 +100,19 @@ export default class PracticeIndex extends Component {
           <Modal
               style={[styles.modal]}
               ref={"modal1"}
-              swipeToClose={this.swipeToClose}
+              coverScreen={true}
+              swipeArea={100}
               onClosed={this.onClose}
               onOpened={this.onOpen}
               onClosingState={this.onClosingState}>
-                <PracticeModal navigation={navigation} />
+                <View >
+                  <PracticeModal navigation={navigation} />
+                  <CardItem style={{ justifyContent:'center' }}>
+                    <CloseBtn style={{backgroundColor:colors.theme}} onPress={() => this.refs.modal1.close()}>
+                      <Text style={{color:'white'}}>X</Text>
+                    </CloseBtn>
+                  </CardItem>
+                </View>
             </Modal>
       </Container>
     )
@@ -117,14 +125,23 @@ const DesTextView = styled.View`
   height:20;
   margin-right:20;
 `
+const CloseBtn = styled.TouchableOpacity`
+    justify-content:center;
+    align-items: center;
+    background-color:red;
+    height:50;
+    width:50;
+    border-radius:50;
+    margin-top:-30;
+`
+const height = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
 
   modal: {
     justifyContent: 'center',
     alignItems: 'center',
-    height:400,
-    width:300,
+    height:height- 100,
     backgroundColor:'transparent'
   },
 
