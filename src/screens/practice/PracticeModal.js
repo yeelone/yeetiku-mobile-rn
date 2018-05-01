@@ -16,6 +16,7 @@ export default class PracticeModal extends Component {
 
   _handlePress = async () => {
     this.props.navigation.navigate('Practing', {type: 'banks'})
+    this.props.onClose()
   }
   render() {
     const { bankStore,navigation } = this.props

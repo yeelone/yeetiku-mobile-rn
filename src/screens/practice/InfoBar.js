@@ -19,6 +19,11 @@ export default class InfoBar extends Component {
       navigation.navigate('Practing', {type})
   }
 
+  _openRecordView = (type) => {
+    const {navigation} = this.props
+    navigation.navigate('PracticeRecord', {type})
+  }
+
   render() {
     const {navigation,bankStore} = this.props
     const records = bankStore.records
@@ -32,7 +37,7 @@ export default class InfoBar extends Component {
                   <Text>做过</Text>
               </Col>
               <Col>
-                <Cell onPress={() => this._openPractingView("wrong")} style={{backgroundColor:"#e74c3c"}}>
+                <Cell onPress={() => this._openRecordView("wrong")} style={{backgroundColor:"#e74c3c"}}>
                     <BigText> { Numeral(records.wrong).format("0 a") }</BigText>
                 </Cell>
                 <Text>错题</Text>

@@ -5,7 +5,7 @@ import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 import { FontAwesome } from '@expo/vector-icons'
 import { MarketScreen, MarketItemScreen,TagsScreen  }from './screens/market'
 import { ProfileScreen,ProfileInfo,ProfileNameEditor,ProfileSexEditor,ProfilePasswordEditor }  from './screens/profile'
-import { PracticeIndex,Practing,QuestionComments } from './screens/practice'
+import { PracticeIndex,Practing,QuestionComments,PracticeRecord} from './screens/practice'
 import { Register,Settings,FeedBack,About,Banks,Login,Splash } from './screens'
 import color from './components/colors'
 
@@ -79,7 +79,8 @@ const MainNavigator =  StackNavigator({
   ProfileNameEditor:{ screen:ProfileNameEditor, path: 'profile-field/:name' },
   ProfileSexEditor:{ screen:ProfileSexEditor, path: 'profile-field/:sex' },
   ProfilePasswordEditor:{ screen:ProfilePasswordEditor, path: 'profile-field/:password' },
-  Practing:{ path: 'practing/:type',screen: Practing},
+  Practing:{ path: 'practing/:type/:bankid',screen: Practing},
+  PracticeRecord:{ screen: PracticeRecord},
   QuestionComments:{ path: 'comments/:id', screen: QuestionComments},
   Banks:{screen: Banks},
 }, {

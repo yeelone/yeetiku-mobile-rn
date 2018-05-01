@@ -196,6 +196,7 @@ export default class BanksStore {
     return queryRecords({id:user_id}).then( action((res)=>{
       if (res.success && res.code === 10200 ){
         this.records = res.body.records
+        console.log(this.records)
         // let list = this.banks
         // for (let i = 0 ; i < list.length ; i++ ){
         //   let id = list[i].id

@@ -106,7 +106,7 @@ export default class PracticeIndex extends Component {
               onOpened={this.onOpen}
               onClosingState={this.onClosingState}>
                 <View >
-                  <PracticeModal navigation={navigation} />
+                  <PracticeModal navigation={navigation} onClose={() => this.refs.modal1.close()}/>
                   <CardItem style={{ justifyContent:'center' }}>
                     <CloseBtn style={{backgroundColor:colors.theme}} onPress={() => this.refs.modal1.close()}>
                       <Text style={{color:'white'}}>X</Text>

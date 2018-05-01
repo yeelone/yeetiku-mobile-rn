@@ -74,7 +74,7 @@ export async function queryUserFavorites(params){
 
 export async function queryUserWrong(params){
   return request({
-    url:users + '/' + params.user_id + '/wrong',
+    url:users + '/' + params.user_id +  '/bank/'+ params.bank_id  + '/wrong',
     method:'get',
     data: params,
   })

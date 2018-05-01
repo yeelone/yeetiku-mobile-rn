@@ -1,6 +1,6 @@
 {
-  "name": "my-project",
-  "version": "0.1.0",
+  "name": "elone-project",
+  "version": "1.0.1",
   "private": true,
   "devDependencies": {
     "babel-eslint": "^7.2.1",
@@ -39,6 +39,7 @@
     "expo": "27.0.0",
     "lodash.debounce": "^4.0.8",
     "lodash.isempty": "^4.4.0",
+    "lodash.values": "^4.3.0",
     "mobx": "^3.1.9",
     "mobx-react": "^4.2.2",
     "moment": "^2.21.0",

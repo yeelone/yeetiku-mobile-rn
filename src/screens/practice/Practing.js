@@ -57,10 +57,11 @@ export default class Practing extends Component {
     const { navigation,bankStore,questionStore,userStore } = this.props
     const { banks,currentIndex } = bankStore
     this.questionType = navigation.state.params.type || null
+    let bankid = navigation.state.params.bankid || null 
     if ( this.questionType === 'favorites') {
       questionStore.fetchFavorites(userStore.id)
     }else if (this.questionType === 'wrong') {
-      questionStore.fetchWrong(userStore.id)
+        questionStore.fetchWrong(userStore.id,bankid)
     }else if (this.questionType === 'banks') {
       questionStore.getByBankID(banks[currentIndex].id)
     }

@@ -89,15 +89,15 @@ export default class QuestionStore {
     }) )
   }
 
-  @action fetchWrong = (user_id: number) => {
+  @action fetchWrong = (user_id: number,bank_id: number) => {
     this.loading = true
-    queryUserWrong({user_id, page:this.page, pageSize:this.pageSize }).then(action( (res)=>{
+    bank_id = bank_id || 0 
+    queryUserWrong({user_id,bank_id, page:this.page, pageSize:this.pageSize }).then(action( (res)=>{
       if ( res.success && res.code === 10200  ) {
         this.questions = this.questions.concat([...res.body.questions])
         this.page = this.page + 1
         this.total = res.body.total
       }
-
       this.loading = false
     }) )
   }
@@ -111,9 +111,7 @@ export default class QuestionStore {
 
   @action dislikeByUser = (comment_id ,user_id:number)=>{
     userDislikeComment({id:comment_id,user_id}).then(action((res) => {
-      console.log(res)
       if ( res.success && res.code === 10200  ) {
-        console.log(res.body)
       }
     }))
   }
@@ -167,18 +165,13 @@ export default class QuestionStore {
 
     this.childCommentLoading = true
     queryChildComments({id:parent, page:this.childCommentPage, pageSize:this.commentPageSize }).then(action( (res)=>{
-      
       if ( res.success && res.code === 10200  ) {
         this.mergeComments(res.body.comments)
-
         this.childCommentPage +=  1
       }
-
       this.childCommentLoading = false
     }) )
   }
-
-  
 
   @action addComments = (comment) => {
     this.commentLoading = true
@@ -192,12 +185,10 @@ export default class QuestionStore {
     }) )
   }
 
-
   @action setCurrent = (index,callback ) => {
 
     if ( index < this.questions.length  && index >= -1) {
       this.current = index
-
       //当当前题目到达临界点时，再次向服务器请求更多的数据
       if ( ( this.current === ( ( this.page - 1)  * this.pageSize  - 2 )) ||  this.current === -1 && this.last !== 0 ) {
         callback()

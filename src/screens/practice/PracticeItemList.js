@@ -29,7 +29,6 @@ export default class PracticeItemList extends Component {
     this.refs.modal1.close()
   }
 
-
   onClose() {
   }
 
