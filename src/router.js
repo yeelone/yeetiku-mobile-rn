@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import { MarketScreen, MarketItemScreen,TagsScreen  }from './screens/market'
 import { ProfileScreen,ProfileInfo,ProfileNameEditor,ProfileSexEditor,ProfilePasswordEditor }  from './screens/profile'
 import { PracticeIndex,Practing,QuestionComments } from './screens/practice'
-import { Register,Settings,FeedBack,Banks,Login,Splash } from './screens'
+import { Register,Settings,FeedBack,About,Banks,Login,Splash } from './screens'
 import color from './components/colors'
 
 const lightContentScenes = ['Home', 'Practice','Profile']
@@ -73,6 +73,7 @@ const MainNavigator =  StackNavigator({
   MarketItemScreen:{screen: MarketItemScreen },
   Register: { screen: Register },
   FeedBack: { screen: FeedBack },
+  About: { screen: About },
   MarketScreen: { path: 'market/:type', screen: MarketScreen },
   ProfileInfo :{ screen:ProfileInfo},
   ProfileNameEditor:{ screen:ProfileNameEditor, path: 'profile-field/:name' },

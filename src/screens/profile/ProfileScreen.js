@@ -3,11 +3,11 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import styled from 'styled-components/native'
 import { View,Text } from 'react-native'
 import { Container, Content, Card, CardItem,Icon,Right } from 'native-base'
 import { Header } from '../../components/profile'
 import { Entypo } from '@expo/vector-icons'
+import styled from 'styled-components/native'
 import color from '../../components/colors'
 import TopHeader  from '../../components/header'
 
@@ -64,7 +64,7 @@ export default class ProfileScreen extends Component {
               </CardRight>
               </CardItem>
 
-              <CardItem button onPress={()=> this.navTo('FeedBack')} style={{backgroundColor:"#e67e22"}}>
+              <CardItem button onPress={()=> this.navTo('About')} style={{backgroundColor:"#e67e22"}}>
                 <CardLeft>
                   <Entypo name="eye" size={24} />
                   <Text>  关于</Text>
