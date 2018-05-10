@@ -17,7 +17,7 @@ import Filling from '../../components/questions/filling'
 import StarButton  from '../../components/button/star'
 import Timer from '../../components/timer/timer'
 import colors from '../../components/colors'
-
+import HTMLView from 'react-native-htmlview'
 import dataMap from '../../../mock/data'
 
 const QuestionType = {
@@ -32,6 +32,7 @@ const QuestionType = {
 export default class Practing extends Component {
   @observable answers = {} //临时性的保存用户刚刚执行的答案
   @observable showModal = false
+  @observable hasChange = false       //如果题目有变化 ，则记录起来
    _timer: Timer
 
   static navigationOptions = {
@@ -48,7 +49,6 @@ export default class Practing extends Component {
     this.selectedOptions = []
     this.filling_answers = []    //服务器返回的多个填空选项之间用 || 分割
     this.truefalse = false
-    this.hasChange = false       //如果题目有变化 ，则记录起来
     this.result = false
     this.questionType = ''
   }
@@ -207,14 +207,27 @@ export default class Practing extends Component {
     this.__handleNextPrev(  this.props.questionStore.current - 1 )
   }
 
-  
-
   renderHeader = (title) => {
     return (
       <View>
         <Timer />
       </View>
     )
+  }
+
+  renderExplain = (current_question) => {
+    let explain = null
+
+    if ( this.hasChange ) {
+      return (
+        <CardView style={{padding:10,}}>
+          <HTMLView
+            value={current_question.expalintion}
+          />
+        </CardView>
+      )
+    }
+    
   }
 
   renderModal = () => {
@@ -326,7 +339,7 @@ export default class Practing extends Component {
               </CardViewBody>
               {  this.renderActions()   }
           </CardView>
-            
+          { this.renderExplain(current_question) }
         </Content>
         <Footer style={{backgroundColor:"#34495e"}}>
           <FooterTab style={{backgroundColor:"#34495e"}}>

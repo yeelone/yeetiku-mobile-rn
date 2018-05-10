@@ -37,7 +37,6 @@ export default class ProfileScreen extends Component {
       avatar:userStore.getAvatar(),
       nickname:user.nickname,
     }
-    console.log(headerProps)
     return (
         <Container style={{backgroundColor:"#34495e"}}>
           <Content style={{paddingTop:20}}>

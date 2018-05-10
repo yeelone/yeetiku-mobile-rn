@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,FlatList,StyleSheet,Dimensions } from 'react-native'
+import { View,Text,FlatList,StyleSheet,Dimensions,ImageBackground } from 'react-native'
 import { Container ,CardItem,Content ,Header, Item, Input, Icon, Button } from 'native-base'
 import Modal from 'react-native-modalbox'
 import PracticeModal from './PracticeModal'
@@ -13,6 +13,10 @@ import TopHeader  from '../../components/header'
 import ThumbnailListItem from '../../components/metaList/item'
 
 import colors from '../../components/colors'
+const height = Dimensions.get('window').height
+const width = Dimensions.get('window').width
+
+
 @inject('bankStore','questionStore','userStore')
 @observer
 export default class PracticeIndex extends Component {
@@ -58,7 +62,7 @@ export default class PracticeIndex extends Component {
   _renderHeaderComponent = (navigation,total) => {
     return (
       <View>
-        <InfoBar navigation={navigation}/>
+         <InfoBar navigation={navigation} />
         <DesTextView>
           <Text style={{color:'#cccccc'}}> {total}个题库 </Text>
         </DesTextView>
@@ -75,11 +79,15 @@ export default class PracticeIndex extends Component {
 
     return (
       <Container style={{flex:1,}}>
+        
           <TopHeader
             navigation={navigation}
             left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>练习</Text>}
-            style={{ backgroundColor:colors.theme }}
+            style={{ height:120,backgroundColor:colors.theme }}
             />
+            <ImageBackground style={{marginTop:-200,height:200,width:width}}  source={require('../../images/bgtop.png')}>
+            </ImageBackground>
+             
               <FlatList
                 data={bankStore.banks}
                 keyExtractor={this._keyExtractor}
@@ -94,7 +102,7 @@ export default class PracticeIndex extends Component {
                 onEndReached={({ distanceFromEnd }) => {
                     bankStore.fetchByUser(userStore.id)
                 }}
-                style={{margin:10}}
+                style={{marginTop:-60}}
                 />
 
           <Modal
@@ -132,9 +140,8 @@ const CloseBtn = styled.TouchableOpacity`
     height:50;
     width:50;
     border-radius:50;
-    margin-top:-30;
+    margin-top:-40;
 `
-const height = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
 

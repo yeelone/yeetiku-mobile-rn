@@ -8,6 +8,7 @@ import { NavigationActions } from 'react-navigation'
 import styled from 'styled-components/native'
 import { registerErrorCallback,registerSuccessCallback } from '../utils/request'
 import { ConfigManager,setHttpBaseUrl } from '../utils'
+
 @inject('userStore')
 @observer
 export default class Splash extends Component {

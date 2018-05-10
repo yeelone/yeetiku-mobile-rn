@@ -2,7 +2,7 @@
 
 import React,{Component} from 'react'
 import styled, { css }  from 'styled-components/native'
-import { View,Text,TouchableOpacity,Image,Platform } from 'react-native'
+import { View,Text,TouchableOpacity,Image,Platform,StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import color from '../colors'
 
@@ -14,7 +14,6 @@ class Back extends Component {
          <Ionicons name="md-arrow-round-back" size={20} style={{color:'white'}}/>
        </BackButton>
      )
-
    }
  }
 
@@ -28,22 +27,19 @@ export default function header({ navigation, title , style , hasBack, left,right
     const {goBack} = navigation
     const backButton =  hasBack ?  <Back navigation={navigation}/>  :  null //占位
     return (
-      <Container style={style}>
-          <Left>
-            { left }
-            { backButton }
-          </Left>
-            { title }
-          <Right>
-            { right }
-          </Right>
+      <Container style={[styles.container,style]}>
+            <Left>
+              { left }
+              { backButton }
+            </Left>
+              { title }
+            <Right>
+              { right }
+            </Right>
       </Container>
     )
 }
-//  border-style:dashed;
-//  border-color: #f1f1f1;
-//  border-width:2;
-//  border-radius:5;
+
 const Container = styled.View`
   padding-top:15;
   margin-bottom:10;
@@ -51,8 +47,24 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  ${Platform.select({ios: css`shadow-color: black;shadow-opacity: 1;shadow-radius: 5;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
+
+// 因为styled不支持inline style
+const styles = StyleSheet.create({
+  container:{
+      ...Platform.select({
+          ios: {
+              shadowColor: 'black',
+              shadowOpacity: 0.1,
+              shadowRadius: 5,
+              shadowOffset: { height:0, width: 0},
+          },
+          android: {
+              elevation:5
+          }
+      })
+  },
+})
 
 const BackButton = styled.TouchableOpacity`
   flex:1;

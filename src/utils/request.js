@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import isEmpty  from 'lodash.isempty'
-import { getToken , removeToken} from './jwtToken'
+import { getToken , removeToken } from './jwtToken'
 
 import ConfigManager from './config'
 const config = ConfigManager.getInstance().config
@@ -105,7 +105,6 @@ export async function request (options) {
     return status 
 
   }).catch((error) => {
-    console.log("error", error);
     
     const { response } = error
     let message

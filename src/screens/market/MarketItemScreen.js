@@ -8,7 +8,7 @@ import { Text } from 'react-native'
 import { Button ,Card, CardItem, Icon} from 'native-base'
 import { ConfigManager } from '../../utils'
 import { Ionicons } from '@expo/vector-icons'
-import color from '../../components/colors'
+import colors from '../../components/colors'
 
 @inject('bankStore')
 @observer
@@ -41,8 +41,8 @@ export default class MarketItemScreen extends Component {
                   <Info>{ bank.description }道题</Info>
               </CardItem>
               <CardItem style={{ justifyContent:'center' }}>
-                  <Button transparent onPress={() => this._handleItemPress()}>
-                      <Text style={{fontSize:24}}>开始刷题</Text>
+                  <Button style={{backgroundColor:colors.theme ,width:150,height:30, justifyContent: 'center',margin:20}} onPress={() => this._handleItemPress()}>
+                    <Text style={{color:'white'}}>开始刷题</Text>
                   </Button>
               </CardItem>
             </Card>
@@ -61,3 +61,5 @@ const Info = styled.Text`
   justify-content: space-between;
   align-items: center;
 `
+
+

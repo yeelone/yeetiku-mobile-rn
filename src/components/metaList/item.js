@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View,Text,Image,Platform } from 'react-native'
+import { View,Text,Image,Platform,StyleSheet } from 'react-native'
 import { ConfigManager,isEmpty } from '../../utils'
 import { Card,CardItem,Thumbnail } from 'native-base'
 import styled,{css} from 'styled-components/native'
@@ -15,7 +15,7 @@ export default function listItem({ index,item,onPress }) {
   }
 
   return (
-    <Container >
+    <Container style={[styles.container]}>
       <CustomCard onPress={() => onPress(item,index)}>
           <BorderView>
             <LeftPane>
@@ -40,9 +40,24 @@ export default function listItem({ index,item,onPress }) {
 
 const Container = styled.View`
   margin:5;
-  ${Platform.select({ios: css`shadow-color: black;shadow-opacity:0.1;shadow-radius: 20;shadow-offset: { height:0, width: 0};`,android: css`elevation:1`})};
 `
 
+// 因为styled不支持inline style
+const styles = StyleSheet.create({
+  container:{
+      ...Platform.select({
+          ios: {
+              shadowColor: 'black',
+              shadowOpacity: 0.1,
+              shadowRadius: 20,
+              shadowOffset: { height:0, width: 0},
+          },
+          android: {
+              elevation:1
+          }
+      })
+  },
+})
 const CustomCard = styled.TouchableOpacity`
   background-color:#f5f5f5;
   padding:5;

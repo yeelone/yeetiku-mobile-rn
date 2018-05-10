@@ -62,7 +62,6 @@ export default class BanksStore {
 
   @action fetchByTag = (key) => {
     key = key || this.currentTag
-    console.log("here is tag store")
     if ( this.bankMarket.length === this.bankMarketTotal || this.loading ) {
       return
     }
@@ -103,6 +102,7 @@ export default class BanksStore {
         this.banks = this.banks.concat([...res.body.banks])
         this.banksTotal = res.body.total
         this.userPage += 1
+        console.log("this.banks", this.banks )
       }else{
         this.banksTotal = 0
       }
@@ -196,7 +196,6 @@ export default class BanksStore {
     return queryRecords({id:user_id}).then( action((res)=>{
       if (res.success && res.code === 10200 ){
         this.records = res.body.records
-        console.log(this.records)
         // let list = this.banks
         // for (let i = 0 ; i < list.length ; i++ ){
         //   let id = list[i].id

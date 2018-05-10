@@ -29,7 +29,7 @@ export default class PracticeRecord extends Component {
             <Right style={{padding:0}}>
                 <View style={styles.actionBar}>
                     <TouchableOpacity style={[styles.actionBtn]} onPress={() => this._openPractingView("wrong",item.id)}>
-                        <Text style={[styles.actionText,{color:'#e17055'}]}>{Numeral(item.wrong).format("0 a")}</Text>
+                        <Text style={[styles.actionText,{color:'#e17058'}]}>{Numeral(item.wrong).format("0 a")}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.actionBtn,]}>
                         <Text style={[styles.actionText,{color:'#00cec9'}]}>{Numeral(item.done).format("0 a")}</Text>
@@ -65,20 +65,20 @@ const styles = StyleSheet.create({
     },
     item :{
         flexDirection:'row',
-        margin:5,
+        margin:1,
         paddingLeft:10,
         backgroundColor:'#f5f5f5',
-        ...Platform.select({
-            ios: {
-                shadowColor: 'black',
-                shadowOpacity: 0.1,
-                shadowRadius: 10,
-                shadowOffset: { height:0, width: 0},
-            },
-            android: {
-                elevation:1
-            }
-        })
+        // ...Platform.select({
+        //     ios: {
+        //         shadowColor: 'black',
+        //         shadowOpacity: 0.1,
+        //         shadowRadius: 10,
+        //         shadowOffset: { height:0, width: 0},
+        //     },
+        //     android: {
+        //         elevation:1
+        //     }
+        // })
     },
     actionBar:{
         flexDirection:'row',
@@ -90,12 +90,13 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems: 'center',
         borderLeftWidth:1,
-        borderRightWidth:1,
-        borderColor:'#cccccc',
+        borderRightWidth:0,
+        borderColor:'#ced6e0',
     },
     actionText:{
         color:'white',
         justifyContent:'center',
         alignItems: 'center',
+        fontWeight: 'bold'
     }
 });

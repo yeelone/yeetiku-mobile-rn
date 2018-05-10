@@ -76,7 +76,7 @@ export default class TagsScreen extends Component {
            if (parent.tag){
                return (
                    <View key={parent.tag.id}>
-                            <Level2Button onPress={() => this.jumpToMarket(parent.tag.id)}>
+                            <Level2Button style={[styles.Level2Button]} onPress={() => this.jumpToMarket(parent.tag.id)}>
                               <Text style={{ fontSize:16,color:"#636e72" }}> { parent.tag.name } </Text>
                             </Level2Button>
                           {/* <Entypo name="controller-play" size={36} style={{marginLeft:-10,color:colors.theme}}/> */}
@@ -183,7 +183,7 @@ const Level1Button = styled.TouchableOpacity`
 `
 const Level2Button = styled.TouchableOpacity`
   padding:3;
-  background-color:#dfe6e9;
+  background-color:#ffffff;
   margin-bottom:5;
   margin-top:5;
   border-color: transparent;
@@ -194,8 +194,8 @@ const Level2Button = styled.TouchableOpacity`
   border-left-color: #b2bec3;
   border-right-width: 10;
   border-right-color: #b2bec3;
-  ${Platform.select({ios: css`shadow-color: black;shadow-opacity: 0.4;shadow-radius: 10;shadow-offset: { height:0, width: 0};`,android: css`elevation:5`})};
 `
+
 const TagItemList = styled.View`
   flex-direction:row;
   align-items:flex-start;
@@ -204,20 +204,19 @@ const TagItemList = styled.View`
 `
 
 const styles = StyleSheet.create({
-  level2Btn:{
-    width: 0,
-    height: 0,
-    backgroundColor:colors.theme,
-    borderStyle:'solid',
-    borderTopWidth: 10,
-    borderTopColor: 'transparent',
-    borderRightWidth: 10,
-    borderRightColor: 'transparent',
-    borderLeftWidth: 5,
-    borderLeftColor: '#79bd9a',
-    borderBottomWidth: 10,
-    borderBottomColor: 'transparent',
-  },
+  Level2Button:{
+    ...Platform.select({
+        ios: {
+            shadowColor: 'black',
+            shadowOpacity: 0.1,
+            shadowRadius: 10,
+            shadowOffset: { height:0, width: 0},
+        },
+        android: {
+            elevation:5
+        }
+    })
+},
   tagItem:{
     margin:5,
     backgroundColor:"#dfe6e9"
