@@ -27,12 +27,18 @@ const QuestionType = {
     filling:'填空题',
 }
 
+const ThemeColor = {
+  bank : colors.theme,
+  exam : "#00d2d3"
+}
+
 @inject('bankStore','questionStore','userStore')
 @observer
 export default class Practing extends Component {
   @observable answers = {} //临时性的保存用户刚刚执行的答案
   @observable showModal = false
   @observable hasChange = false       //如果题目有变化 ，则记录起来
+  @observable themeColor = ThemeColor.bank
    _timer: Timer
 
   static navigationOptions = {
@@ -58,12 +64,13 @@ export default class Practing extends Component {
     const { banks,currentIndex } = bankStore
     this.questionType = navigation.state.params.type || null
     let bankid = navigation.state.params.bankid || null 
-    if ( this.questionType === 'favorites') {
+    if ( this.questionType === 'favorites') {  //收藏的题
       questionStore.fetchFavorites(userStore.id)
-    }else if (this.questionType === 'wrong') {
-        questionStore.fetchWrong(userStore.id,bankid)
-    }else if (this.questionType === 'banks') {
+    }else if (this.questionType === 'wrong') { //错过的题
+      questionStore.fetchWrong(userStore.id,bankid)
+    }else if (this.questionType === 'banks') { //指定题库
       questionStore.getByBankID(banks[currentIndex].id)
+    }else if (this.questionType === 'exam') { //指定考试
     }
   }
 
@@ -80,14 +87,16 @@ export default class Practing extends Component {
     this.questionType = navigation.state.params.type || null
     questionStore.clear()
     if (this.questionType === 'banks') {
+      this.themeColor = ThemeColor.bank
       if ( banks.length >  0 ) {
         questionStore.setOffset(getCurrentRecord(banks[currentIndex].id).latest)
       }
+    }else if (this.questionType === 'exam') {
+      this.themeColor = ThemeColor.exam
     }
     this.fetchQuestions()
     this.timer && clearInterval(this.timer)
     clearTimeout(this._timer)
-
 
     //当前练习内容是从题库里取的话，就定时向服务器同步做题记录
       const user_id = this.props.userStore.id
@@ -312,12 +321,12 @@ export default class Practing extends Component {
 
     return (
 
-      <Container style={{ backgroundColor:colors.theme }}>
+      <Container style={{ backgroundColor:this.themeColor }}>
         <Header
           navigation={navigation}
           hasBack={true}
           title={ current_question.type ? this.renderHeader(QuestionType[current_question.type]) : this.renderHeader("")  }
-          style={{ backgroundColor:colors.theme }}
+          style={{ backgroundColor:this.themeColor }}
           />
 
         <Content style={[styles.content]}>

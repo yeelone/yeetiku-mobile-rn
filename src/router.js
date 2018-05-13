@@ -2,11 +2,12 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome,Entypo } from '@expo/vector-icons'
 import { MarketScreen, MarketItemScreen,TagsScreen  }from './screens/market'
 import { ProfileScreen,ProfileInfo,ProfileNameEditor,ProfileSexEditor,ProfilePasswordEditor }  from './screens/profile'
 import { PracticeIndex,Practing,QuestionComments,PracticeRecord} from './screens/practice'
-import { Register,Settings,FeedBack,About,Banks,Login,Splash } from './screens'
+import { ExamScreen } from './screens/exam'
+import { Register,Settings,FeedBack,About,Banks,Login,Splash} from './screens'
 import color from './components/colors'
 
 const lightContentScenes = ['Home', 'Practice','Profile']
@@ -38,6 +39,25 @@ function getCurrentRouteName(navigationState) {
 }
 
 const AppNavigator = TabNavigator({
+ 
+  Practice: {
+    screen: PracticeIndex,
+    navigationOptions:{
+      tabBarIcon: ({ tintColor }) => (
+        <FontAwesome name="play" size={32} style={{color:tintColor}}/>
+      ),
+      title: '练习',
+    }
+  },
+  ExamScreen:{
+    screen:ExamScreen,
+    navigationOptions:{
+      tabBarIcon: ({ tintColor }) => (
+        <Entypo name="hour-glass" size={32} style={{color:tintColor}} />
+      ),
+      title: '测试',
+    }
+  },
   TagsScreen:{
     screen: TagsScreen,
     navigationOptions:{
@@ -45,15 +65,6 @@ const AppNavigator = TabNavigator({
         <FontAwesome name="tags" size={32} style={{color:tintColor}} />
       ),
       title: '分类',
-    }
-  },
-  Practice: {
-    screen: PracticeIndex,
-    navigationOptions:{
-      tabBarIcon: ({ tintColor }) => (
-        <FontAwesome name="play" size={32} style={{color:tintColor}}/>
-      ),
-      title: '题库练习',
     }
   },
   ProfileScreen:{
@@ -80,6 +91,7 @@ const MainNavigator =  StackNavigator({
   ProfileSexEditor:{ screen:ProfileSexEditor, path: 'profile-field/:sex' },
   ProfilePasswordEditor:{ screen:ProfilePasswordEditor, path: 'profile-field/:password' },
   Practing:{ path: 'practing/:type/:bankid',screen: Practing},
+  
   PracticeRecord:{ screen: PracticeRecord},
   QuestionComments:{ path: 'comments/:id', screen: QuestionComments},
   Banks:{screen: Banks},

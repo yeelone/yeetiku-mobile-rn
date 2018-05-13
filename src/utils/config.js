@@ -16,6 +16,7 @@ const api = {
     upload:'/upload',
     feedback:'/feedback',
     comments:'/comments',
+    exams:'/exams',
 }
 
 const defaultSettings = {
