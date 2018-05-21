@@ -3,11 +3,11 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer ,inject } from 'mobx-react'
-import styled from 'styled-components/native'
-import { Text,TouchableOpacity,ScrollView,View } from 'react-native'
-import { Button ,Card, CardItem, Icon} from 'native-base'
+import { Text,ScrollView,View } from 'react-native'
+import { Button,Card,CardItem,Icon} from 'native-base'
 import { ConfigManager } from '../../utils'
 import { Ionicons } from '@expo/vector-icons'
+import styled from 'styled-components/native'
 import colors from '../../components/colors'
 
 @inject('bankStore','questionStore','userStore')
@@ -58,8 +58,6 @@ export default class PracticeModal extends Component {
     )
   }
 }
-
-
 
 const Thumbnail = styled.Image`
   height:100;

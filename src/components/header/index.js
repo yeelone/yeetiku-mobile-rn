@@ -22,7 +22,7 @@ export default function header({ navigation, title , style , hasBack, left,right
     hasBack = hasBack || false
     style = style || { backgroundColor: color.bar }
     title = title || null
-    right = right || <View style={{flex:1, width:40}}></View>
+    right = right || <View style={{flex:1, width:100}}></View>
     left = left || null
     const {goBack} = navigation
     const backButton =  hasBack ?  <Back navigation={navigation}/>  :  null //占位
@@ -85,7 +85,6 @@ const Right = styled.View`
   align-self: flex-end;
   justify-content: center;
   align-items: center;
-  width:30;
   height:55;
 `
 

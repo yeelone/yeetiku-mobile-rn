@@ -6,7 +6,7 @@ import { FontAwesome,Entypo } from '@expo/vector-icons'
 import { MarketScreen, MarketItemScreen,TagsScreen  }from './screens/market'
 import { ProfileScreen,ProfileInfo,ProfileNameEditor,ProfileSexEditor,ProfilePasswordEditor }  from './screens/profile'
 import { PracticeIndex,Practing,QuestionComments,PracticeRecord} from './screens/practice'
-import { ExamScreen } from './screens/exam'
+import { ExamScreen,ExamPracting } from './screens/exam'
 import { Register,Settings,FeedBack,About,Banks,Login,Splash} from './screens'
 import color from './components/colors'
 
@@ -91,7 +91,7 @@ const MainNavigator =  StackNavigator({
   ProfileSexEditor:{ screen:ProfileSexEditor, path: 'profile-field/:sex' },
   ProfilePasswordEditor:{ screen:ProfilePasswordEditor, path: 'profile-field/:password' },
   Practing:{ path: 'practing/:type/:bankid',screen: Practing},
-  
+  ExamPracting:{ path: 'exam/practing/:id',screen: ExamPracting},
   PracticeRecord:{ screen: PracticeRecord},
   QuestionComments:{ path: 'comments/:id', screen: QuestionComments},
   Banks:{screen: Banks},

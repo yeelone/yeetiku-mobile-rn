@@ -17,7 +17,7 @@ export default class Splash extends Component {
   }
 
   async componentDidMount(){
-    
+    const { userStore } = this.props 
     registerErrorCallback((status)=>{
       if ( status.status === 401 ) {
         userStore.logout()
@@ -27,7 +27,7 @@ export default class Splash extends Component {
 
     const config = ConfigManager.getInstance()
     await config.getConfig()
-    this.props.userStore.setDomain(config.config.domain)
+    userStore.setDomain(config.config.domain)
     setHttpBaseUrl(config.config.domain,config.config.apiPrefix)
     this.navTo('MainNavigator')
   }

@@ -16,7 +16,7 @@ export default class MultiSelect extends Component {
     this.result = false
   }
 
-  componentDidMount(){
+  componentDidUpdate(){
       const { options } = this.props.question
       const { initial } = this.props
       runInAction("update state after fetching data",()=>{

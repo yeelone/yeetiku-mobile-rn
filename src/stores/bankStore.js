@@ -102,7 +102,6 @@ export default class BanksStore {
         this.banks = this.banks.concat([...res.body.banks])
         this.banksTotal = res.body.total
         this.userPage += 1
-        console.log("this.banks", this.banks )
       }else{
         this.banksTotal = 0
       }

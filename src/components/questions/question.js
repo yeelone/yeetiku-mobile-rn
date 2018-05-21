@@ -3,22 +3,19 @@
 /*todo : 该组件太过复杂，有机会有时间要重构 */
 
 import React, { Component } from 'react'
-import { observable } from 'mobx'
-import { observer, inject } from 'mobx-react'
 import { View,StyleSheet,Text,Animated,Modal,ActivityIndicator} from 'react-native'
 import { Container,Content, Card,CardItem,Footer, FooterTab,Body, Button, Icon, Badge, Picker,Input} from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 import styled from 'styled-components/native'
-import Header  from '../../components/header'
-import Choice from '../../components/questions/choice'
-import MultiSelect from '../../components/questions/multiselect'
-import Truefalse from '../../components/questions/truefalse'
-import Filling from '../../components/questions/filling'
-import StarButton  from '../../components/button/star'
-import Timer from '../../components/timer/timer'
-import colors from '../../components/colors'
+import Header  from '../header'
+import Choice from './choice'
+import MultiSelect from './multiselect'
+import Truefalse from './truefalse'
+import Filling from './filling'
+import StarButton  from '../button/star'
+import Timer from '../timer/timer'
+import colors from '../colors'
 import HTMLView from 'react-native-htmlview'
-import dataMap from '../../../mock/data'
 
 const QuestionType = {
     single:'单选题',
@@ -32,25 +29,14 @@ const ThemeColor = {
   exam : "#00d2d3"
 }
 
-@inject('bankStore','questionStore','userStore')
-@observer
-export default class Practing extends Component {
+export default class Question extends Component {
   @observable answers = {} //临时性的保存用户刚刚执行的答案
   @observable showModal = false
   @observable hasChange = false       //如果题目有变化 ，则记录起来
   @observable themeColor = ThemeColor.bank
-   _timer: Timer
-
-  static navigationOptions = {
-    header: null,
-  }
 
   constructor(props){
     super(props)
-    this.state = {
-      fadeAnim: new Animated.Value(0),          // Initial value for opacity: 0
-      animating: true,
-    }
 
     this.selectedOptions = []
     this.filling_answers = []    //服务器返回的多个填空选项之间用 || 分割
@@ -59,59 +45,10 @@ export default class Practing extends Component {
     this.questionType = ''
   }
 
-  fetchQuestions = () => {
-    const { navigation,bankStore,questionStore,userStore } = this.props
-    const { banks,currentIndex } = bankStore
-    this.questionType = navigation.state.params.type || null
-    let bankid = navigation.state.params.bankid || null 
-    if ( this.questionType === 'favorites') {  //收藏的题
-      questionStore.fetchFavorites(userStore.id)
-    }else if (this.questionType === 'wrong') { //错过的题
-      questionStore.fetchWrong(userStore.id,bankid)
-    }else if (this.questionType === 'banks') { //指定题库
-      questionStore.getByBankID(banks[currentIndex].id)
-    }else if (this.questionType === 'exam') { //指定考试
-    }
-  }
-
   componentDidMount(){
-    Animated.timing(                            // Animate over time
-      this.state.fadeAnim,                      // The animated value to drive
-      {
-        toValue: 10,                             // Animate to opacity: 1, or fully opaque
-      }
-    ).start()
-
-    const { navigation,bankStore,questionStore } = this.props
-    const { banks,currentIndex,getCurrentRecord } = bankStore
-    this.questionType = navigation.state.params.type || null
-    questionStore.clear()
-    if (this.questionType === 'banks') {
-      this.themeColor = ThemeColor.bank
-      if ( banks.length >  0 ) {
-        questionStore.setOffset(getCurrentRecord(banks[currentIndex].id).latest)
-      }
-    }else if (this.questionType === 'exam') {
-      this.themeColor = ThemeColor.exam
-    }
-    this.fetchQuestions()
-    this.timer && clearInterval(this.timer)
-    clearTimeout(this._timer)
-
-    //当前练习内容是从题库里取的话，就定时向服务器同步做题记录
-      const user_id = this.props.userStore.id
-      const bank_id = this.props.bankStore.id
-      const { syncHistoryRecords } = this.props.questionStore
-      this.timer = setInterval(
-        () => {
-            syncHistoryRecords(user_id, bank_id)
-        },
-        5000
-      )
   }
 
   componentWillUnmount(){
-   clearInterval(this.timer)
   }
 
   _handleChoice = (selected,result ) => {
@@ -137,34 +74,6 @@ export default class Practing extends Component {
     this.filling_answers[index] = text
   }
 
-  _saveCurrentAnswer = () => {
-    const { bankStore,questionStore } = this.props
-    const { questions,current,setCurrent,saveAnswer,getAnswer } = questionStore
-    const { banks,currentIndex } = bankStore
-
-    if ( !questions.length ) return
-
-    const type = questions[current].type
-    let data = {
-                  bank_id:banks[currentIndex].id,
-                  question_id:questions[current].id ,
-                  type:questions[current].type,
-                  result: this.result,
-                }
-    if ( type === 'single' || type === 'multiple')  {
-      data['options'] = this.selectedOptions
-    }
-
-    if ( type === 'filling' ){
-      data['filling_answers'] =  this.filling_answers
-    }
-
-    if ( type === 'truefalse') {
-      data['truefalse'] = this.truefalse
-    }
-    saveAnswer( data )
-  }
-
   _getAnswers = () => {
     const { questions,current,getAnswer } = this.props.questionStore
 
@@ -179,41 +88,18 @@ export default class Practing extends Component {
   }
 
   __handleNextPrev = async (index) => {
-    const { questionStore } = this.props
-    const { getCurrentIndex,setCurrent,insertHistoryRecord,isUserFavoritesAction,page,pageSize } = questionStore
-    if ( this.hasChange ) {
-      this._saveCurrentAnswer()
-      insertHistoryRecord(this.result)
-      this.hasChange = false
-    }
-
-    const userid = this.props.userStore.id
-
-    await setCurrent( index , () => this.fetchQuestions()  )
-    await isUserFavoritesAction(userid)
-
   }
 
   _handleStarAction = (status) => {
-      const { addFavoritesAction,removeFavoritesAction } = this.props.questionStore
-      if ( status ){
-        removeFavoritesAction()
-      }else{
-        addFavoritesAction()
-      }
   }
 
   _handleReplyAction = (id) => {
-      const {navigation} = this.props
-      navigation.navigate('QuestionComments',{id})
   }
 
   _handleNext = () => {
-    this.__handleNextPrev( this.props.questionStore.current +1 )
   }
 
   _handlePrev = () => {
-    this.__handleNextPrev(  this.props.questionStore.current - 1 )
   }
 
   renderHeader = (title) => {
@@ -231,7 +117,7 @@ export default class Practing extends Component {
       return (
         <CardView style={{padding:10,}}>
           <HTMLView
-            value={current_question.explanation}
+            value={current_question.expalintion}
           />
         </CardView>
       )

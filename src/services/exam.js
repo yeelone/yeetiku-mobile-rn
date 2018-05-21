@@ -3,13 +3,12 @@ const config = ConfigManager.getInstance().config
 const { api } = config
 const { exams,users } = api
 
-
-export async function queryByID(params) {
+export async function queryExamQuestions(params) {
     return request({
       url: exams + "/" + params.id ,
       method: 'get',
     })
-  }
+}
 
 export async function create(params) {
     return request({
@@ -25,12 +24,11 @@ export async function queryByUser(params){
       method:'get',
       data:params
     })
-  }
-
+}
 export async function updateScore(params) {
     return request({
-      url: exams,
-      method: '',
+      url: exams + "/" + params.id  + '/score',
+      method: 'put',
       data: params,
     })
 }

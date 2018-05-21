@@ -16,7 +16,7 @@ export default class Filling extends Component {
   @observable inputs = []
   @observable inputStyles = observable.map({})
   @observable showAnswers = false
-  componentDidMount(){
+  componentDidUpdate(){
     const { question, initial } = this.props
     const { options } = question
     this.inputs = initial

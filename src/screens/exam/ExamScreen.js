@@ -3,8 +3,8 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,Text,FlatList,StyleSheet,Dimensions,ImageBackground } from 'react-native'
-import { Container ,Card} from 'native-base'
+import { View,Text,FlatList,StyleSheet,Dimensions,ImageBackground,TouchableOpacity } from 'react-native'
+import { Container ,Card,Button,CardItem} from 'native-base'
 import TopHeader  from '../../components/header'
 import colors from '../../components/colors'
 const height = Dimensions.get('window').height
@@ -24,20 +24,34 @@ export default class ExamScreen extends Component {
     examStore.fetchByUser(userStore.id)
   }
 
+  _handlePress  = async () => {
+    const { examStore,navigation } = this.props 
+    await examStore.getNewExam()
+    navigation.navigate('ExamPracting', {id: examStore.currentExam.id})
+  }
+
   renderTimeComp = (date) => {
-    var d = date.split('-')
+    let newDate = [2018,1,1]
+    if ( date ){
+      newDate = date.split('-')
+    }
 
     return (
       <View style={{marginTop:10}}>
-         <Text style={{width:60,color:'#ff7f50',fontSize:20,textAlign: 'center'}}>{d[2]} </Text>
-         <Text style={{color:'grey',fontSize:12,textAlign: 'center'}}>{d[1]} </Text>
-         <Text style={{color:'grey',fontSize:10,textAlign: 'center'}}>{d[0]} </Text>
+         <Text style={{width:60,color:'#ff7f50',fontSize:20,textAlign: 'center'}}>{newDate[2]} </Text>
+         <Text style={{color:'grey',fontSize:12,textAlign: 'center'}}>{newDate[1]} </Text>
+         <Text style={{color:'grey',fontSize:10,textAlign: 'center'}}>{newDate[0]} </Text>
       </View>
     )
   }
 
-  renderItem = ({item,index}) => {
 
+  renderItem = ({item,index}) => {
+    const { examStore } = this.props 
+    let score = item.score
+    if ( examStore.getScore(item.id) > 0 ){
+      score = examStore.getScore(item.id) 
+    }
     return (
       <View style={{flex:1,flexDirection:'row'}}>
         <View style={styles.leftPane}>
@@ -49,17 +63,40 @@ export default class ExamScreen extends Component {
           
           <View style={{flex:1,flexDirection:'row',margin:5}}>
             <Text style={styles.cardText}>题数： <Text style={{fontSize:20,color:'#fab1a0'}}> {item.quantity} </Text> </Text>
-            <Text style={styles.cardText}>得分： <Text style={{fontSize:20,color:'#55efc4'}}> {item.score} </Text> </Text>
+            <Text style={styles.cardText}>得分： <Text style={{fontSize:20,color:'#55efc4'}}> {score} </Text> </Text>
           </View>
 
           <View style={{flex:1,flexDirection:'row',justifyContent: 'flex-end',}}>
           { item.expired ? 
-          <Text style={{color:'grey',fontSize:12}}>查看结果 </Text>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate('ExamPracting', {id: item.id})}>
+            <Text style={{color:'grey',fontSize:12}}>查看结果 </Text>
+          </TouchableOpacity>
           :
-          <Text style={{color:'grey',fontSize:12}}>开始测试</Text>
+          <TouchableOpacity onPress={()=>this.props.navigation.navigate('ExamPracting', {id: item.id})}>
+            <Text style={{color:'grey',fontSize:12}}>开始测试</Text>
+          </TouchableOpacity>
           }
             
           </View> 
+        </Card>
+      </View>
+    )
+  }
+
+  renderCreateBtn = () => {
+    return (
+      <View style={{height:140,paddingLeft:10,paddingRight:10}}>
+        <Card >
+          <CardItem style={{ justifyContent:'center',backgroundColor:"#f6e58d"}}>
+            <Text style={{padding:10}}>
+                  欢迎来到YEE测试教室，我是您的测试小助手，在这里您可以随意创建您的复习试卷，系统将会从您之前练习过的题中随机抽取来组成复习试卷。
+            </Text>
+          </CardItem>
+          <CardItem style={{ justifyContent:'center',height:50 }}>
+            <Button style={{backgroundColor:"#ff7979" ,width:150,height:30, justifyContent: 'center'}} onPress={() => this._handlePress() }>
+                <Text style={{color:'white'}}>创建随机复习卷</Text>
+            </Button>
+          </CardItem>
         </Card>
       </View>
     )
@@ -75,13 +112,12 @@ export default class ExamScreen extends Component {
             left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>考试</Text>}
             style={{ height:60,backgroundColor:colors.theme }}
             />
-
+            {this.renderCreateBtn()}
             <FlatList
                 data={examStore.exams}
                 keyExtractor={this._keyExtractor}
                 renderItem={({item,index}) => this.renderItem({item,index})}
                 refreshing={examStore.loading}
-                style={{marginTop:60}}
                 />
       </Container>
     )

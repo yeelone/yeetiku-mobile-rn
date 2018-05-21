@@ -33,7 +33,6 @@ export default class TagsScreen extends Component {
   async componentDidMount(){
     const { allTags } = this.props.bankStore
     await this.props.bankStore.fetchAllTags()
-
   }
 
   jumpToMarket = (tag) => {

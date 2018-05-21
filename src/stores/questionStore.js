@@ -5,6 +5,7 @@ import { observable ,action,toJS } from 'mobx'
 import { query,addFavorites,removeFavorites,queryFavoritesStatusByUserID,queryUserFavorites,
   queryUserWrong,queryComments,queryChildComments,createComments,userLikeComment,userDislikeComment } from '../services/questions'
 import { queryRelatedQuestions } from '../services/banks'
+import { queryExamQuestions } from '../services/exam'
 import { saveRecords } from '../services/users'
 
 export default class QuestionStore {
@@ -180,13 +181,11 @@ export default class QuestionStore {
         comment.id = res.body.id 
         this.mergeComments([comment])
       }
-
       this.commentLoading = false
     }) )
   }
 
   @action setCurrent = (index,callback ) => {
-
     if ( index < this.questions.length  && index >= -1) {
       this.current = index
       //当当前题目到达临界点时，再次向服务器请求更多的数据
@@ -208,6 +207,7 @@ export default class QuestionStore {
       this.last = 0
       this.page = 1
       this.questions = []
+      this.answers = observable.map({})
   }
 
   @action saveAnswer = ( { bank_id,question_id,type,options,filling_answers,truefalse ,result}) => {

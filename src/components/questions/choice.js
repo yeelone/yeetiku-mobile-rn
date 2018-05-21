@@ -4,17 +4,19 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer } from 'mobx-react'
-import styled from 'styled-components/native'
 import { Entypo } from '@expo/vector-icons'
-import colors from '../colors'
 import { View,TouchableOpacity,Text,Dimensions } from 'react-native'
 import { RadioButtons } from 'react-native-radio-buttons'
+import colors from '../colors'
+import styled from 'styled-components/native'
 
 @observer
 export default class Choice extends Component {
   @observable selectedOption = {}
   @observable selectedStyle = { fontWeight: 'bold',color:'#ffffff', backgroundColor:colors.rightColor}
-  componentDidMount(){
+  @observable alreadySelected = false 
+
+  componentDidUpdate() {
     const { question, initial } = this.props
     const { options } = question
     if ( initial ) {
@@ -23,7 +25,7 @@ export default class Choice extends Component {
             this.selectedOption =  item
             this._checkAnswers(this.selectedOption)
           }
-        })
+      })
     }
   }
 
@@ -43,12 +45,12 @@ export default class Choice extends Component {
   renderOption = (option, selected, onSelect, index) => {
     const style = selected ? this.selectedStyle : {}
     const mark = selected ?  <Entypo name="check" size={16} /> :<Entypo name="vinyl" size={16} />
-
     const _handleSelect = () => {
       let result = this._checkAnswers(option)
       onSelect()
       this.props.onSelect(option.id,result)
     }
+    
     return (
         <RadioListView  key={index}>
           <RadioItem onPress={_handleSelect} >
@@ -59,7 +61,7 @@ export default class Choice extends Component {
   }
 
   setSelectedOption =(selectedOption) => {
-    this.selectedOption = selectedOption
+      this.selectedOption = selectedOption
   }
 
   renderContainer = (optionNodes) => {
