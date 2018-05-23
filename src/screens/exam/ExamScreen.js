@@ -85,18 +85,18 @@ export default class ExamScreen extends Component {
 
   renderCreateBtn = () => {
     return (
-      <View style={{height:140,paddingLeft:10,paddingRight:10}}>
-        <Card >
-          <CardItem style={{ justifyContent:'center',backgroundColor:"#f6e58d"}}>
+      <View style={{height:140,paddingLeft:10,paddingRight:10,marginBottom:20}}>
+        <Card style={{ borderWidth:0 }}>
+          <View style={{ justifyContent:'center',backgroundColor:"#f6e58d"}}>
             <Text style={{padding:10}}>
                   欢迎来到YEE测试教室，我是您的测试小助手，在这里您可以随意创建您的复习试卷，系统将会从您之前练习过的题中随机抽取来组成复习试卷。
             </Text>
-          </CardItem>
-          <CardItem style={{ justifyContent:'center',height:50 }}>
+          </View>
+          <View style={{ flex:1,flexDirection:'row',justifyContent:'center',height:50,marginTop:20 }}>
             <Button style={{backgroundColor:"#ff7979" ,width:150,height:30, justifyContent: 'center'}} onPress={() => this._handlePress() }>
                 <Text style={{color:'white'}}>创建随机复习卷</Text>
             </Button>
-          </CardItem>
+          </View>
         </Card>
       </View>
     )
@@ -106,7 +106,7 @@ export default class ExamScreen extends Component {
   render() {
     const { navigation, examStore,userStore } = this.props
     return (
-      <Container style={{flex:1,}}>
+      <Container style={{flex:1,backgroundColor:"#fff"}}>
        <TopHeader
             navigation={navigation}
             left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>考试</Text>}

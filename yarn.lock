@@ -5912,9 +5912,9 @@ react-native-drawer@2.5.0:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
 
-react-native-easy-comments@^1.0.14:
-  version "1.0.14"
-  resolved "http://registry.npm.taobao.org/react-native-easy-comments/download/react-native-easy-comments-1.0.14.tgz#a8e5f83b7d59e71c378fc2457f1221857d1eea20"
+react-native-easy-comments@^1.0.15:
+  version "1.0.15"
+  resolved "http://registry.npm.taobao.org/react-native-easy-comments/download/react-native-easy-comments-1.0.15.tgz#a4c4f106830e060ebd5a302e7ec7594a13c6ad04"
   dependencies:
     moment "^2.20.1"
     moment-timezone "^0.5.14"

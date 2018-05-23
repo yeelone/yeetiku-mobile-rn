@@ -25,7 +25,7 @@ export default class QuestionComments extends Component {
         }
     }
 
-    onLike  = ({item}) => {
+    onLike = ({item}) => {
         const {questionStore, userStore } = this.props
         questionStore.likeByUser(item.id, userStore.id )
     }

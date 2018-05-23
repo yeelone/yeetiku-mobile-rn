@@ -17,7 +17,6 @@ export default function listItem({ index,item,onPress }) {
   return (
     <Container style={[styles.container]}>
       <CustomCard onPress={() => onPress(item,index)}>
-          <BorderView>
             <LeftPane>
               <View>
                 <Text> {name} </Text>
@@ -29,17 +28,16 @@ export default function listItem({ index,item,onPress }) {
                 <Text style={{color:'grey'}}> [{total}道题]  {this.formatTime(createdAt)} </Text>
               </View>
             </LeftPane>
-            <View style={{overflow: 'hidden',borderTopRightRadius:10,borderBottomRightRadius:10,justifyContent: 'flex-end',alignItems: 'center',}}>
+            <View style={{overflow: 'hidden',justifyContent: 'flex-end',alignItems: 'center',}}>
               <Thumbnail square source={{uri:thumbnail}} style={{height:100,width:100,}} />
             </View>
-          </BorderView>
         </CustomCard>
     </Container>
   )
 }
 
 const Container = styled.View`
-  margin:5;
+  margin:10;
 `
 
 // 因为styled不支持inline style
@@ -58,17 +56,10 @@ const styles = StyleSheet.create({
       })
   },
 })
+
 const CustomCard = styled.TouchableOpacity`
   background-color:#f5f5f5;
-  padding:5;
-`
-
-const BorderView = styled.View`
   flex-direction:row;
-  border-width:2;
-  border-radius:5;
-  border-style:dashed;
-  border-color: #dfe4ea;
 `
 
 const LeftPane = styled.View`

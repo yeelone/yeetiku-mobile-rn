@@ -5,7 +5,7 @@
 import React, { Component } from 'react'
 import { observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
-import { View,StyleSheet,Text,Animated,Modal,ActivityIndicator} from 'react-native'
+import { View,StyleSheet,Dimensions,Text,Animated,Modal,ActivityIndicator} from 'react-native'
 import { Container,Content, Card,CardItem,Footer, FooterTab,Body, Button, Icon, Badge, Picker,Input} from 'native-base'
 import { Entypo } from '@expo/vector-icons'
 import styled from 'styled-components/native'
@@ -249,24 +249,35 @@ export default class Practing extends Component {
           visible={this.showModal}
           onRequestClose={() => this.showModal = false }
           >
-         <AlignView>
-            <Card style={{ alignSelf: "stretch" ,backgroundColor:"pink"}}>
+          <View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center'}}>
+            <View style={{
+                  width:Dimensions.get('window').width,
+                  height:Dimensions.get('window').height,
+                  backgroundColor:'rgba(0, 0, 0, 0.7)',
+                  borderRadius:5,
+                  justifyContent: 'center',
+                  padding:20
+                  }}>
               <CardItem header>
-                <Text>跳转...</Text>
+                <Text >跳转到指定题目...</Text>
                </CardItem>
                <CardItem>
-                     <Input placeholder="请选择第几题" keyboardType="numeric" onChangeText={(value) => inputValue = value }/>
+                     <Input placeholder="输入题目位置" keyboardType="numeric" onChangeText={(value) => inputValue = value }/>
                 </CardItem>
-                <CardItem header>
-                  <Button onPress={ () => this.showModal= false } light>
+
+                <CardItem style={{ justifyContent: 'center',}}>
+                  <Button style={{width:100,justifyContent: 'center'}} onPress={ () => this.showModal= false } light>
                    <Text> 关闭 </Text>
                   </Button>
-                  <Button success onPress={() => { setCurrent(inputValue-1); this.showModal= false } }  >
+                  <Button success style={{width:100,justifyContent: 'center',}} onPress={() => { setCurrent(inputValue-1); this.showModal= false } }  >
                    <Text> 跳转 </Text>
                   </Button>
                 </CardItem>
-             </Card>
-         </AlignView>
+            </View>
+          </View>
         </Modal>
       )
   }
@@ -373,7 +384,9 @@ export default class Practing extends Component {
 const AlignView = styled.View`
   justify-content: center;
   align-items: center;
-  flex:1;
+  height:300;
+  width:300;
+  flex-direction: column;
 `
 const CardView = styled.View`
     justify-content: center;

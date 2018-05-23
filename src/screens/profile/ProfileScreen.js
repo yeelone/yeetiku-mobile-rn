@@ -40,9 +40,7 @@ export default class ProfileScreen extends Component {
     return (
         <Container style={{backgroundColor:"#34495e"}}>
           <Content style={{paddingTop:20}}>
-              <BorderView>
                 <Header {...headerProps}/>
-              </BorderView>
               <CardItem button  onPress={()=> this.navTo('ProfileInfo')} style={{backgroundColor:"#f1c40f"}}>
                 <CardLeft>
                   <Entypo name="user" size={24} />

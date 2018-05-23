@@ -34,7 +34,7 @@ export default function header ({ name,domain, backgroundImage, avatar , nicknam
 
 const Container = styled.View`
   justify-content:center;
-  margin-bottom:10;
+  margin:10;
   flex:1;
 `
 

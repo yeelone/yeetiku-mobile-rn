@@ -31,7 +31,6 @@ export default class TagsScreen extends Component {
   }
 
   async componentDidMount(){
-    const { allTags } = this.props.bankStore
     await this.props.bankStore.fetchAllTags()
   }
 
@@ -47,16 +46,20 @@ export default class TagsScreen extends Component {
       this.key = key
       this.itemState = {
         checked: !this.itemState.checked,
-        style:{backgroundColor:"#dfe6e9"}
+        style:{backgroundColor:"#fff"}
       }
   }
 
-  renderLevel1 = (node) => {
-       if ( node.hasOwnProperty("id")  ) {
+  renderLevel1 = (index,node) => {
+       if ( node.hasOwnProperty("id") ) {
          let style = {}
          if ( node.id === this.key ){
            style = this.itemState.style
          }
+         if ( this.key === "" && index === 0 ){
+          style = {backgroundColor:"#fff"}
+         }
+         
          return (
               <Level1Button key={node.id} style={style} onPress={() => this.handlerL1Press(node.id) } >
                 <Text>{node.name}</Text>
@@ -76,7 +79,7 @@ export default class TagsScreen extends Component {
                return (
                    <View key={parent.tag.id}>
                             <Level2Button style={[styles.Level2Button]} onPress={() => this.jumpToMarket(parent.tag.id)}>
-                              <Text style={{ fontSize:16,color:"#636e72" }}> { parent.tag.name } </Text>
+                              <Text style={{ fontSize:16,color:"#636e72" }}> { parent.tag.name } >>> </Text>
                             </Level2Button>
                           {/* <Entypo name="controller-play" size={36} style={{marginLeft:-10,color:colors.theme}}/> */}
                        <TagItemList>
@@ -128,15 +131,15 @@ export default class TagsScreen extends Component {
           <Header searchBar rounded style={[styles.headerBar]}>
             <Search onSearch={(value)=>this._handleSearch(value)} />
           </Header> 
-            { loading ? <Spinner color='green' /> : null}
-              <View style={{flex:1,marginTop:10,flexDirection:'row'}}>
+              { loading ? <Spinner color='green' /> : null}
+              <View style={{flex:1,flexDirection:'row'}}>
               
                 <LeftPane>
                   <ScrollView >
                   {
-                    Object.keys(allTags).map((key)=>{
+                    Object.keys(allTags).map((key,index)=>{
                               const item = allTags[key].tag
-                              return this.renderLevel1(item)
+                              return this.renderLevel1(index,item)
                           })
                   }
                   </ScrollView>
@@ -154,11 +157,13 @@ export default class TagsScreen extends Component {
 const LeftPane = styled.View`
   width:80;
   border-right-width:1;
-  border-right-color:#cccccc;
+  border-right-color:#dfe4ea;
+  background-color:#d2dae2;
 `
 
 const RightPane = styled.View`
   flex:1 ;
+  background-color:#ffffff;
 `
 
 const TopPane = styled.View`
@@ -174,25 +179,17 @@ const BottomPane = styled.View`
 const Level1Button = styled.TouchableOpacity`
   justify-content:center;
   margin-left:2;
-  padding-left:2;
+  padding-left:10;
   width:100;
   height:40;
   border-bottom-width:1;
-  border-bottom-color:#ecf0f1;
+  border-bottom-color:#dfe4ea;
 `
 const Level2Button = styled.TouchableOpacity`
   padding:3;
-  background-color:#ffffff;
   margin-bottom:5;
   margin-top:5;
   border-color: transparent;
-  border-top-width: 7;
-  border-top-color: transparent;
-  border-bottom-width: 7;
-  border-left-width: 10;
-  border-left-color: #b2bec3;
-  border-right-width: 10;
-  border-right-color: #b2bec3;
 `
 
 const TagItemList = styled.View`
@@ -223,7 +220,7 @@ const styles = StyleSheet.create({
   headerBar:{
     paddingTop:Platform.OS === 'ios' ? 25 : StatusBar.currentHeight + 3  ,
     paddingBottom:10,
-    height:60,
+    height:70,
     backgroundColor:colors.theme,
   }
 });
