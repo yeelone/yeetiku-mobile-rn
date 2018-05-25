@@ -62,7 +62,7 @@ export default class PracticeIndex extends Component {
   _renderHeaderComponent = (navigation,total) => {
     return (
       <View>
-         <InfoBar navigation={navigation} />
+         
         <DesTextView>
           <Text style={{color:'#cccccc'}}> {total}个题库 </Text>
         </DesTextView>
@@ -78,15 +78,16 @@ export default class PracticeIndex extends Component {
     if ( banksTotal !== -1 ) total = banksTotal
 
     return (
-      <Container style={{flex:1,}}>
+      <Container style={{flex:1}}>
         
-          <TopHeader
+        <TopHeader
             navigation={navigation}
-            left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>练习</Text>}
-            style={{ height:120,backgroundColor:colors.theme }}
+            left={ <Text style={{color:colors.headerTextColor, fontSize:20 }}>学习</Text>}
+            style={{height:120,backgroundColor:colors.theme }}
             />
-            <ImageBackground style={{marginTop:-200,height:200,width:width}}  source={require('../../images/bgtop.png')}>
-            </ImageBackground>
+            <InfoBar navigation={navigation} styles={{marginTop:-60}}/>
+            {/* <ImageBackground style={{marginTop:-100,height:200,width:width}}  source={require('../../images/bgtop.png')}>
+            </ImageBackground> */}
              
               <FlatList
                 data={bankStore.banks}
@@ -102,9 +103,10 @@ export default class PracticeIndex extends Component {
                 onEndReached={({ distanceFromEnd }) => {
                     bankStore.fetchByUser(userStore.id)
                 }}
-                style={{marginTop:-60}}
+                // style={{marginTop:-60}}
+                // style={{position:'absolute',zIndex:99,top:80,left:0,width:width,marginTop:-60}}
                 />
-
+          
           <Modal
               style={[styles.modal]}
               ref={"modal1"}

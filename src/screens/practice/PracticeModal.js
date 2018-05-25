@@ -34,7 +34,7 @@ export default class PracticeModal extends Component {
                     <Thumbnail source={{uri:thumbnail}} />
                 </CardItem>
                 <CardItem style={{ justifyContent:'center' }}>
-                    <ScrollView style={{maxHeight:120}}>
+                    <ScrollView style={{maxHeight:100}}>
                         <Text >{ bank.description }</Text>
                     </ScrollView>
                 </CardItem>

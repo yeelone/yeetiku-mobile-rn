@@ -66,7 +66,7 @@ export default class Market extends Component {
     return (
       <Container style={{backgroundColor:colors.background}}>
         <Content>
-            <Header searchBar rounded style={{padding:10,backgroundColor:colors.theme }}>
+            <Header rounded style={{padding:5,backgroundColor:colors.theme }}>
               <SearchBar>
                 <Input
                   placeholder="Search"

@@ -60,6 +60,8 @@ const Grid = styled.View`
   margin:10;
   border-radius:5;
   background-color:#34495e;
+  
+  
 `
 
 // 因为styled不支持inline style

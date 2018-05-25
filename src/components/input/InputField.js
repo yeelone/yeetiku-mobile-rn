@@ -15,11 +15,12 @@ const FormInput = styled.TextInput`
 @observer
 export default class InputField extends Component {
   @observable name = ''
+  @observable text = ''
 
-  onChange = (event) =>  {
-    this.props.onChange( this.name, event.nativeEvent.text)
+  onChangeText = (text) => {
+    setTimeout(() => {this.setState({ text: text })})
+    this.props.onChange(this.name , text)
   }
-
   render () {
     const input = this.props
     this.name = input.name
@@ -27,7 +28,7 @@ export default class InputField extends Component {
         <FormInput
             {...this.props}
             underlineColorAndroid='transparent'
-            onChange={ (event) => this.onChange(event) }
+            onChangeText={(text) => this.onChangeText(text)}
             value={input.value} />
     )
   }

@@ -189,7 +189,6 @@ const Level2Button = styled.TouchableOpacity`
   padding:3;
   margin-bottom:5;
   margin-top:5;
-  border-color: transparent;
 `
 
 const TagItemList = styled.View`
@@ -218,7 +217,7 @@ const styles = StyleSheet.create({
     backgroundColor:"#dfe6e9"
   },
   headerBar:{
-    paddingTop:Platform.OS === 'ios' ? 25 : StatusBar.currentHeight + 3  ,
+    paddingTop:Platform.OS === 'ios' ? 25 : StatusBar.currentHeight + 10  ,
     paddingBottom:10,
     height:70,
     backgroundColor:colors.theme,

@@ -28,14 +28,14 @@ export default function header({ navigation, title , style , hasBack, left,right
     const backButton =  hasBack ?  <Back navigation={navigation}/>  :  null //占位
     return (
       <Container style={[styles.container,style]}>
-            <Left>
-              { left }
-              { backButton }
-            </Left>
-              { title }
-            <Right>
-              { right }
-            </Right>
+        <Left>
+          { left }
+          { backButton }
+        </Left>
+          { title }
+        <Right>
+          { right }
+        </Right>
       </Container>
     )
 }

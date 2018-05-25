@@ -1,7 +1,7 @@
 
 ![image](https://wx4.sinaimg.cn/mw690/6547935dgy1fqsrdovh9yj20im0imq4l.jpg)
 
-# [忆题库 YeeTiku](http://yeetiku.com/) - 可定制的题库平台
+# [忆题库 YeeTiku](http://yeetiku.com/) - 可定制的开源题库平台
 
 
 YeeTiku分为三个部分：
